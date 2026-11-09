@@ -1,5 +1,11 @@
-// Owner: Rahul (B) — task B5. Spec: Notion guide, Phase 5 "src/instrumentation.ts".
-// Stub: telemetry calls in src/lib/telemetry.ts are no-ops until this registers the SDK.
-// When implementing: load ./instrumentation.node only when NEXT_RUNTIME === "nodejs"
-// and OTEL_EXPORTER_OTLP_ENDPOINT is set. NodeSDK uses `metricReaders: [...]` (plural).
-export async function register() {}
+// Owner: Rahul (B) — task B4. Spec: Notion guide, Phase 5 "src/instrumentation.ts".
+// Next.js calls register() once per server start. Telemetry stays off (and the app still
+// works) until OTEL_EXPORTER_OTLP_ENDPOINT is set; the SDK only loads in the Node.js runtime.
+export async function register() {
+  if (
+    process.env.NEXT_RUNTIME === "nodejs" &&
+    process.env.OTEL_EXPORTER_OTLP_ENDPOINT
+  ) {
+    await import("./instrumentation.node");
+  }
+}
