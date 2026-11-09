@@ -28,6 +28,9 @@ RUN addgroup -S -g 1001 app && adduser -S -u 1001 -G app app
 COPY --from=build --chown=1001:1001 /app/.next/standalone ./
 COPY --from=build --chown=1001:1001 /app/.next/static ./.next/static
 COPY --from=build --chown=1001:1001 /app/public ./public
+# The talkbridge-sync CronJob runs scripts/sync-sessions.mjs from this same image;
+# its dependencies are already in the standalone node_modules.
+COPY --from=build --chown=1001:1001 /app/scripts ./scripts
 USER 1001
 EXPOSE 8080
 CMD ["node", "server.js"]

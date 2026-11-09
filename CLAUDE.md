@@ -15,6 +15,7 @@ TalkBridge helps conference attendees find the right talk (Elasticsearch hybrid 
 4. **Stay in your lane.** Only edit files owned by your engineer (table in docs/PLAN.md). Shared contract files need both engineers' agreement in the PR.
 5. **Hackathon rules.** The team must understand and be able to explain every line — explain non-obvious code in the PR description. AI assistance is disclosed in the README. Use only public data with source links; no private data.
 6. Commit or push only when the engineer asks.
+7. **Delete branches once merged.** A local `.git/hooks/post-commit` hook (also linked as `post-merge`) runs on `main`: it does `git fetch --prune` and `git branch -d` on every branch merged into `main`. It never deletes `main`. Squash-merged branches are only listed, not deleted; confirm with `gh pr view <branch> --json state` before deleting them with `-D`.
 
 ## Plan deviations (installed versions differ from the Notion guide — follow these)
 
