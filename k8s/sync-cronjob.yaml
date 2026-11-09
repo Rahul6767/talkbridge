@@ -1,0 +1,66 @@
+# Owner: Hemanth (A), in Rahul's k8s/ folder. Refreshes talkbridge-sessions from the
+# official KubeCon NA 2026 schedule every 6 hours (scripts/sync-sessions.mjs).
+# Same image as the web app; only the command differs.
+#
+# Uses its own Secret so the write-capable Elasticsearch key never reaches the web pods.
+# Create it by hand (never commit it), from a git-ignored env file containing only:
+#   ELASTICSEARCH_URL, ELASTICSEARCH_SYNC_API_KEY, OTEL_EXPORTER_OTLP_ENDPOINT,
+#   OTEL_EXPORTER_OTLP_PROTOCOL, OTEL_EXPORTER_OTLP_HEADERS (no quotes around values)
+#   kubectl -n team-talkbridge create secret generic talkbridge-sync-secrets \
+#     --from-env-file=.env.sync --dry-run=client -o yaml | kubectl apply -f -
+# Run once now, without waiting for the schedule:
+#   kubectl -n team-talkbridge create job --from=cronjob/talkbridge-sync talkbridge-sync-manual
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: talkbridge-sync
+  labels:
+    app.kubernetes.io/name: talkbridge-sync
+    app.kubernetes.io/part-of: talkbridge
+spec:
+  schedule: "0 */6 * * *"
+  timeZone: "America/Denver"
+  # Never run two syncs at once; a missed run is retried for up to an hour.
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 3600
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 1200
+      ttlSecondsAfterFinished: 86400
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: talkbridge-sync
+            app.kubernetes.io/part-of: talkbridge
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: sync
+              image: app # replaced by kustomization.yaml (set by the GitHub Action)
+              command: ["node", "scripts/sync-sessions.mjs"]
+              envFrom:
+                - secretRef:
+                    name: talkbridge-sync-secrets
+              env:
+                - name: OTEL_SERVICE_NAME
+                  value: talkbridge-sync
+                - name: DEPLOYMENT_ENVIRONMENT
+                  value: hackathon
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop: ["ALL"]
