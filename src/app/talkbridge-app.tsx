@@ -29,9 +29,9 @@ const FILTERS = [
 type FilterName = (typeof FILTERS)[number]["name"];
 
 const field =
-  "mt-1 w-full rounded-lg border border-slate-500 bg-slate-900 p-3 text-base text-slate-100 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300";
+  "mt-1 w-full rounded-lg border border-slate-500 bg-slate-900 p-3 text-base text-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300";
 const primary =
-  "rounded-lg bg-teal-300 px-5 py-3 font-semibold text-slate-950 hover:bg-teal-200 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+  "rounded-lg bg-teal-300 px-5 py-3 font-semibold text-slate-950 hover:bg-teal-200 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 export function TalkBridgeApp() {
   const [background, setBackground] = useState(
@@ -54,7 +54,14 @@ export function TalkBridgeApp() {
   const [guide, setGuide] = useState<PrepareResponse | null>(null);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
+  // Bumped on every new result list / error so focus moves even if the text is unchanged.
+  const [resultsVersion, setResultsVersion] = useState(0);
+  const [errorVersion, setErrorVersion] = useState(0);
+  const resultsHeading = useRef<HTMLHeadingElement>(null);
+  const errorAlert = useRef<HTMLParagraphElement>(null);
   const guideHeading = useRef<HTMLHeadingElement>(null);
+  // While busy, controls stay focusable (aria-disabled + early returns) instead of
+  // using `disabled`, which would drop keyboard focus to <body>.
   const busy = status !== "";
 
   // Filters are optional: if facets fail to load, the selects just offer "Any".
@@ -67,10 +74,19 @@ export function TalkBridgeApp() {
       .catch(() => {});
   }, []);
 
-  // Move focus to the new guide so keyboard and screen-reader users land on it.
+  // Move focus deliberately to whatever the last action produced: the guide,
+  // the new result list, or the error, so keyboard and screen-reader users land on it.
   useEffect(() => {
     if (guide) guideHeading.current?.focus();
   }, [guide]);
+
+  useEffect(() => {
+    if (resultsVersion > 0) resultsHeading.current?.focus();
+  }, [resultsVersion]);
+
+  useEffect(() => {
+    if (errorVersion > 0) errorAlert.current?.focus();
+  }, [errorVersion]);
 
   async function call<T>(label: string, url: string, init?: RequestInit) {
     setStatus(label);
@@ -83,6 +99,7 @@ export function TalkBridgeApp() {
       }
       return data as T;
     } catch (err) {
+      setErrorVersion((version) => version + 1);
       setError(
         err instanceof TypeError
           ? "Network error. Check your connection and try again."
@@ -101,10 +118,12 @@ export function TalkBridgeApp() {
     setResultsLabel(label);
     setSelected(null);
     setGuide(null);
+    setResultsVersion((version) => version + 1);
   }
 
   async function search(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (busy) return;
     const params = new URLSearchParams({ q: query.trim(), mode });
     for (const { name } of FILTERS) {
       if (filters[name]) params.set(name, filters[name]);
@@ -120,6 +139,7 @@ export function TalkBridgeApp() {
   }
 
   async function recommend() {
+    if (busy || !background.trim()) return;
     const data = await call<RecommendResponse>("Finding talks for you…", "/api/recommend", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -129,7 +149,7 @@ export function TalkBridgeApp() {
   }
 
   async function prepare() {
-    if (!selected) return;
+    if (busy || !selected || !background.trim()) return;
     setGuide(null);
     const data = await call<PrepareResponse>(
       "Writing your preparation guide… this can take up to 30 seconds.",
@@ -188,7 +208,6 @@ export function TalkBridgeApp() {
                 value={background}
                 maxLength={1000}
                 rows={3}
-                disabled={busy}
                 aria-describedby="background-hint"
                 onChange={(event) => {
                   setBackground(event.target.value);
@@ -197,7 +216,7 @@ export function TalkBridgeApp() {
                 className={field}
               />
               <p id="background-hint" className="mt-1 text-sm text-slate-300">
-                Used only to tailor results and guides. Not stored.
+                Sent only to our search and AI providers to tailor results and guides. TalkBridge does not save it. Please leave out names, employers or other personal details.
               </p>
             </div>
             <div>
@@ -209,7 +228,7 @@ export function TalkBridgeApp() {
                 id="goal"
                 value={goal}
                 maxLength={300}
-                disabled={busy}
+                aria-describedby="background-hint"
                 placeholder="For example: get started with Kubernetes"
                 onChange={(event) => setGoal(event.target.value)}
                 className={field}
@@ -223,7 +242,6 @@ export function TalkBridgeApp() {
                 <select
                   id="language"
                   value={language}
-                  disabled={busy}
                   onChange={(event) => {
                     setLanguage(event.target.value);
                     setGuide(null);
@@ -244,7 +262,6 @@ export function TalkBridgeApp() {
                 <select
                   id="reading-level"
                   value={readingLevel}
-                  disabled={busy}
                   onChange={(event) => {
                     setReadingLevel(event.target.value);
                     setGuide(null);
@@ -262,7 +279,7 @@ export function TalkBridgeApp() {
             <button
               type="button"
               onClick={recommend}
-              disabled={busy || !background.trim()}
+              aria-disabled={busy || !background.trim()}
               className={primary}
             >
               Recommend talks for me
@@ -284,7 +301,6 @@ export function TalkBridgeApp() {
                 type="search"
                 value={query}
                 maxLength={200}
-                disabled={busy}
                 placeholder="Try: how do I debug slow services?"
                 onChange={(event) => setQuery(event.target.value)}
                 className={field}
@@ -293,7 +309,7 @@ export function TalkBridgeApp() {
                 Leave empty to browse every session.
               </p>
             </div>
-            <fieldset disabled={busy}>
+            <fieldset>
               <legend className="font-medium">Search mode</legend>
               <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-5">
                 {MODES.map((option) => (
@@ -323,7 +339,6 @@ export function TalkBridgeApp() {
                   <select
                     id={`filter-${name}`}
                     value={filters[name]}
-                    disabled={busy}
                     onChange={(event) =>
                       setFilters({ ...filters, [name]: event.target.value })
                     }
@@ -339,7 +354,7 @@ export function TalkBridgeApp() {
                 </div>
               ))}
             </div>
-            <button type="submit" disabled={busy} className={primary}>
+            <button type="submit" aria-disabled={busy} className={primary}>
               Search
             </button>
           </form>
@@ -348,14 +363,24 @@ export function TalkBridgeApp() {
             {status}
           </p>
           {error && (
-            <p role="alert" className="rounded-lg bg-red-950 p-4 text-red-100">
+            <p
+              ref={errorAlert}
+              role="alert"
+              tabIndex={-1}
+              className="rounded-lg bg-red-950 p-4 text-red-100 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-300"
+            >
               {error}
             </p>
           )}
 
           {resultsLabel && (
             <section aria-labelledby="results-heading" className="space-y-3">
-              <h2 id="results-heading" className="text-xl font-semibold">
+              <h2
+                id="results-heading"
+                ref={resultsHeading}
+                tabIndex={-1}
+                className="text-xl font-semibold focus:outline-none"
+              >
                 {resultsLabel}
               </h2>
               {sessions.length === 0 && (
@@ -366,14 +391,15 @@ export function TalkBridgeApp() {
                   <li key={session.id}>
                     <button
                       type="button"
-                      disabled={busy}
+                      aria-disabled={busy}
                       aria-pressed={selected?.id === session.id}
                       onClick={() => {
+                        if (busy) return;
                         setSelected(session);
                         setGuide(null);
                       }}
                       className={
-                        "w-full rounded-xl border p-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300 " +
+                        "w-full rounded-xl border p-5 text-left aria-disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300 " +
                         (selected?.id === session.id
                           ? "border-teal-300 bg-slate-800"
                           : "border-slate-700 bg-slate-900 hover:border-slate-500")
@@ -430,7 +456,7 @@ export function TalkBridgeApp() {
                 <button
                   type="button"
                   onClick={prepare}
-                  disabled={busy || !background.trim()}
+                  aria-disabled={busy || !background.trim()}
                   className={primary}
                 >
                   Prepare me
