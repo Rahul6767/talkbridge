@@ -79,6 +79,23 @@ export function validateSession(s) {
   return null;
 }
 
+/** Returns an error message, or null if the speaker profile is valid. */
+export function validateSpeaker(s) {
+  for (const field of ["id", "fullName", "tagLine", "company", "title", "bio", "photoUrl"]) {
+    if (typeof s[field] !== "string") return `"${field}" must be a string`;
+  }
+  if (!s.fullName.trim()) return `"fullName" is empty`;
+  if (!Array.isArray(s.links) || !s.links.every((l) => l.url?.startsWith("https://"))) {
+    return `"links" must be https URLs`;
+  }
+  if (!Array.isArray(s.sessionIds)) return `"sessionIds" must be an array`;
+  return null;
+}
+
+export function hashDocument(fields) {
+  return createHash("sha256").update(JSON.stringify(fields)).digest("hex");
+}
+
 /** Stable hash of the fields users see; unchanged sessions are not re-embedded. */
 export function hashSession(s) {
   const canonical = JSON.stringify([

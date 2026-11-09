@@ -1,6 +1,6 @@
-// Applies one source's sessions to the index: upsert new/changed, skip unchanged,
-// delete sessions this source created that are gone from the feed. Never deletes
-// records from other sources (e.g. the fictional demo session) and never drops the index.
+// Applies one source's documents to an index: upsert new/changed, skip unchanged,
+// delete documents this source created that are gone from the feed. Never deletes
+// records from other sources (e.g. the fictional demo session) and never drops an index.
 
 // Bookkeeping fields added next to the Session fields. Additive mapping change only.
 const SYNC_FIELDS = {
@@ -9,7 +9,23 @@ const SYNC_FIELDS = {
   syncedAt: { type: "date" },
 };
 
-// If a feed suddenly returns far fewer sessions than we hold, the page is probably
+// Speaker profiles: created and owned by the sync job (no seed script for this index).
+const SPEAKER_MAPPING = {
+  properties: {
+    id: { type: "keyword" },
+    fullName: { type: "text", fields: { raw: { type: "keyword" } } },
+    tagLine: { type: "text" },
+    company: { type: "keyword" },
+    title: { type: "text" },
+    bio: { type: "text" },
+    photoUrl: { type: "keyword", index: false },
+    links: { type: "object", enabled: false },
+    sessionIds: { type: "keyword" },
+    ...SYNC_FIELDS,
+  },
+};
+
+// If a feed suddenly returns far fewer documents than we hold, the page is probably
 // broken; keep existing data rather than mass-deleting.
 const MIN_FEED_RATIO = 0.5;
 
@@ -20,9 +36,16 @@ export async function ensureSyncFields(client, index) {
   await client.indices.putMapping({ index, properties: SYNC_FIELDS });
 }
 
-/** id -> { source, contentHash } for every document in the index. */
+export async function ensureSpeakerIndex(client, index) {
+  if (!(await client.indices.exists({ index }))) {
+    await client.indices.create({ index, mappings: SPEAKER_MAPPING });
+  }
+}
+
+/** id -> { source, contentHash } for every document in the index (empty if it doesn't exist yet). */
 export async function loadExisting(client, index) {
   const existing = new Map();
+  if (!(await client.indices.exists({ index }))) return existing;
   const result = await client.search({
     index,
     size: 10_000,
@@ -35,35 +58,38 @@ export async function loadExisting(client, index) {
   return existing;
 }
 
-export async function applySource(client, index, { source, sessions, existing, dryRun, log }) {
+/**
+ * @param docs   documents with `id` and `contentHash`
+ * @param toDoc  optional extra fields per document (e.g. the semantic_text `content`)
+ */
+export async function applySource(
+  client,
+  index,
+  { source, sessions: docs, existing, dryRun, log, toDoc = () => ({}) }
+) {
   const now = new Date().toISOString();
-  const feedIds = new Set(sessions.map((s) => s.id));
+  const feedIds = new Set(docs.map((d) => d.id));
 
   const toUpsert = [];
   let added = 0;
   let unchanged = 0;
-  for (const s of sessions) {
-    const previous = existing.get(s.id);
-    if (previous?.contentHash === s.contentHash && previous?.source === source) {
+  for (const d of docs) {
+    const previous = existing.get(d.id);
+    if (previous?.contentHash === d.contentHash && previous?.source === source) {
       unchanged++;
       continue;
     }
     if (!previous) added++;
-    toUpsert.push({
-      ...s,
-      content: `${s.title}\n\n${s.abstract}`,
-      source,
-      syncedAt: now,
-    });
+    toUpsert.push({ ...d, ...toDoc(d), source, syncedAt: now });
   }
   const updated = toUpsert.length - added;
 
   const owned = [...existing].filter(([, doc]) => doc.source === source).map(([id]) => id);
   let toDelete = owned.filter((id) => !feedIds.has(id));
   let deletesSkipped = false;
-  if (owned.length >= 10 && sessions.length < owned.length * MIN_FEED_RATIO) {
+  if (owned.length >= 10 && docs.length < owned.length * MIN_FEED_RATIO) {
     log(
-      `WARN ${source}: feed has ${sessions.length} sessions but index holds ${owned.length}; ` +
+      `WARN ${source}: feed has ${docs.length} documents but ${index} holds ${owned.length}; ` +
         `skipping ${toDelete.length} deletes in case the feed is broken.`
     );
     toDelete = [];

@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { LANGUAGES, READING_LEVELS } from "@/lib/options";
+import { SpeakerPanel } from "./speaker-panel";
 import type {
   Facets,
   PrepareResponse,
@@ -452,6 +453,7 @@ export function TalkBridgeApp() {
                   Fictional demo session, not part of the real schedule.
                 </p>
               )}
+              <SpeakerPanel key={selected.id} sessionId={selected.id} />
               <div>
                 <button
                   type="button"
