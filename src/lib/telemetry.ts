@@ -1,4 +1,4 @@
-// SHARED CONTRACT — Engineer A calls these from API routes; Engineer B owns the SDK setup
+// SHARED CONTRACT — Hemanth (A) calls these from API routes; Rahul (B) owns the SDK setup
 // (src/instrumentation*.ts). Until the SDK is registered every call here is a no-op.
 // Privacy rule: attributes carry lengths, counts, ids and modes only — never attendee
 // background, goal, prompt text or generated guides.

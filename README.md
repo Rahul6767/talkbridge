@@ -3,7 +3,7 @@
 Find the right conference talk and arrive prepared — in your language and at your level.
 Built at the WeMakeDevs Cloud Native Hackathon, Salt Lake City, November 9, 2026.
 
-> Work in progress. Sections marked TODO are completed in Notion Phase 12 (owner: Engineer B drafts, Engineer A fills features and data sources).
+> Work in progress. Sections marked TODO are completed in Notion Phase 12 (owner: Rahul (B) drafts, Hemanth (A) fills features and data sources).
 
 ## What it does
 TODO (A)

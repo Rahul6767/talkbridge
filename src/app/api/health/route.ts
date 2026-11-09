@@ -1,4 +1,4 @@
-// Owner: Engineer B. Kubernetes readiness/liveness probe target (Phase 9).
+// Owner: Rahul (B). Kubernetes readiness/liveness probe target (Phase 9).
 import { connection } from "next/server";
 
 export async function GET() {

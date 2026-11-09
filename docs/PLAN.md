@@ -1,12 +1,14 @@
 # TalkBridge — two-engineer parallel plan
 
+**Team:** Engineer 1 is **Hemanth** (track A, App & Search). Engineer 2 is **Rahul** (track B, Platform & Observability). Task IDs (`A3`, `B8`) and branch prefixes (`a/`, `b/`) keep the A/B letters.
+
 Source of truth for code: the Notion build guide (https://app.notion.com/p/cc653c004823826ab0268135a7b4d1a9). This file splits it so two engineers work in parallel without blocking or conflicting. Project rules live in [../CLAUDE.md](../CLAUDE.md).
 
 **Deadline: submissions close at 5:30 PM MT.** Feature freeze is at 4:30.
 
 ## Roles
 
-| | Engineer A — App & Search | Engineer B — Platform & Observability |
+| | Hemanth (A) — App & Search | Rahul (B) — Platform & Observability |
 | --- | --- | --- |
 | Tracks led | Elasticsearch “Find the Right Talk”, Merge Forward (accessibility) | Gitar “Never Merge Broken”, Dash0 “Stop Flying Blind”, Radar “AI SRE” |
 | Notion phases | 4, 6, 7, 11 | 2, 3, 5, 8, 9, 10 |
@@ -14,20 +16,20 @@ Source of truth for code: the Notion build guide (https://app.notion.com/p/cc653
 | Accounts to own | Elastic Serverless, OpenAI (project key + budget) | GitHub repo, Gitar, Dash0, Radar |
 | Coding-agent connections | Elastic Agent Skills | Radar MCP, Dash0 MCP |
 
-Each engineer runs their own Claude Code session. Tell Claude “I am Engineer A” (or B) at the start of a session.
+Each engineer runs their own Claude Code session. Tell Claude “I am Hemanth (A)” or “I am Rahul (B)” at the start of a session.
 
 ## File ownership (prevents merge conflicts)
 
 | Owner | Files |
 | --- | --- |
-| A | `src/app/api/search`, `facets`, `recommend`, `prepare` routes; `src/app/page.tsx`; `scripts/seed.mjs`; `data/sessions.json` |
-| B | `src/app/api/health`; `src/instrumentation.ts`; `src/instrumentation.node.ts`; `src/app/rum.tsx`; `src/app/layout.tsx`; `next.config.ts`; `package.json` / `package-lock.json`; `.github/`; `.gitar/`; `Dockerfile`; `.dockerignore`; `k8s/` |
+| Hemanth (A) | `src/app/api/search`, `facets`, `recommend`, `prepare` routes; `src/app/page.tsx`; `scripts/seed.mjs`; `data/sessions.json` |
+| Rahul (B) | `src/app/api/health`; `src/instrumentation.ts`; `src/instrumentation.node.ts`; `src/app/rum.tsx`; `src/app/layout.tsx`; `next.config.ts`; `package.json` / `package-lock.json`; `.github/`; `.gitar/`; `Dockerfile`; `.dockerignore`; `k8s/` |
 | Shared contract (both approve changes) | `src/lib/types.ts`, `options.ts`, `telemetry.ts`, `rate-limit.ts`, `elastic.ts`; `.env.example`; `CLAUDE.md`; this file |
-| Both (B drafts, A fills) | `README.md` |
+| Both (Rahul drafts, Hemanth fills) | `README.md` |
 
-Rules: no edits to the other engineer's files; if you need a change, ask in chat or open a small PR and tag them. Need a new npm package? Ask B, who adds it in one PR so the lockfile only changes in one place.
+Rules: no edits to the other engineer's files; if you need a change, ask in chat or open a small PR and tag them. Need a new npm package? Ask Rahul, who adds it in one PR so the lockfile only changes in one place.
 
-## API contract (A implements, B relies on it for probes, dashboards and SLOs)
+## API contract (Hemanth implements, Rahul relies on it for probes, dashboards and SLOs)
 
 | Method | Path | Request | 200 response | Errors | Span name |
 | --- | --- | --- | --- | --- | --- |
@@ -41,7 +43,7 @@ Metrics both rely on (from `src/lib/telemetry.ts`): `talkbridge.operation.durati
 
 ## Timeline (Mountain Time)
 
-| Time | Engineer A | Engineer B | Sync |
+| Time | Hemanth (A) | Rahul (B) | Sync |
 | --- | --- | --- | --- |
 | 12:15–12:35 | A0: Elastic project, keys, OpenAI budget | B1–B2: repo, PR #1 (this base), Gitar, rules, secret scanning | **S0 12:15** (10 min): read this file, split accounts |
 | 12:35–1:30 | A1–A3: data, seed, search API | B3–B5: Dash0 tokens, OTel SDK, verify signals | |
@@ -55,7 +57,7 @@ Metrics both rely on (from `src/lib/telemetry.ts`): `talkbridge.operation.durati
 | 5:00–5:15 | Both: rehearse the 3-minute demo; each person explains the half they did not build | | **S4 5:00** |
 | 5:15–5:30 | Submit (repo URL, tracks, README) | | **Submit by 5:25** |
 
-## Engineer A tasks
+## Hemanth (A) tasks
 
 | ID | Task | Notion | Done when |
 | --- | --- | --- | --- |
@@ -73,12 +75,12 @@ Metrics both rely on (from `src/lib/telemetry.ts`): `talkbridge.operation.durati
 
 PR order for A: `a/A2-seed` → `a/A3-search-api` → `a/A4-A6-apis` → `a/A7-ui` → `a/A8-a11y` → fixes.
 
-## Engineer B tasks
+## Rahul (B) tasks
 
 | ID | Task | Notion | Done when |
 | --- | --- | --- | --- |
-| B1 | `git init`, `gh repo create talkbridge --public --source=. --remote=origin`; PR #1 = this base scaffold (branch `b/B1-base`), invite Engineer A as collaborator | 3 | Repo public; A can clone |
-| B2 | Install Gitar on the repo, auto-apply on, confirm `.gitar/review/talkbridge.md` is picked up (adjust folder format to Gitar docs if needed); ruleset on `main` (PR required, `ci / check` required, no force push); secret scanning + push protection | 2, 3 | PR #1 reviewed by Gitar, CI green, merged |
+| B1 | ✅ Repo https://github.com/talkbridge-team/talkbridge (moved from Rahul6767 into the talkbridge-team org; repo is public); base scaffold pushed to `main` (commits `82972f5`, `fb249ff`, CI green); Hemanth is an admin. Done. | 3 | Repo public |
+| B2 | Install Gitar on the repo, auto-apply on, confirm `.gitar/review/talkbridge.md` is picked up (adjust folder format to Gitar docs if needed); ruleset on `main` (PR required, `ci / check` required, no force push); secret scanning + push protection | 2, 3 | First feature PR reviewed by Gitar, CI green; direct pushes to `main` blocked |
 | B3 | Dash0: OTLP HTTP endpoint for the region; backend **Ingesting-only** token; dataset name. Values only in `.env.local`; share with A through a password manager, never chat | 2, 8 | Token works |
 | B4 | `src/instrumentation.ts` + `src/instrumentation.node.ts` (NodeSDK with `metricReaders` plural, `logRecordProcessors`, auto-instrumentations minus fs/net/dns) | 5 | `npm run build` passes; app still runs without OTEL vars |
 | B5 | Verify all three signals in Dash0 (use A’s first route or `/api/health`); check that no user text appears in any span, including Elasticsearch client spans | 8 | Traces, logs, metrics visible; privacy check passes |
@@ -96,11 +98,11 @@ PR order for B: `b/B1-base` → `b/B4-otel` → `b/B6-docker` → `b/B7-rum` →
 
 | Needs | From | By | What |
 | --- | --- | --- | --- |
-| A | B | 12:35 | Repo exists, A is a collaborator, CI + Gitar active (B1–B2) |
-| A | B | 1:30 | OTEL values for A’s `.env.local` (via password manager) so A sees their spans |
-| B | A | 1:30 | One working API route on `main` to generate real telemetry |
-| B | A | 2:45 | Prepare + search on `main` for the first cluster deploy |
-| B | A | 2:45 | Read-only Elasticsearch app key and OpenAI key for `talkbridge-secrets` (via password manager) |
+| Hemanth | Rahul | 12:35 | Repo exists, Hemanth has write access (done), CI + Gitar active (B1–B2) |
+| Hemanth | Rahul | 1:30 | OTEL values for Hemanth’s `.env.local` (via password manager) so spans from Hemanth’s routes show up in Dash0 |
+| Rahul | Hemanth | 1:30 | One working API route on `main` to generate real telemetry |
+| Rahul | Hemanth | 2:45 | Prepare + search on `main` for the first cluster deploy |
+| Rahul | Hemanth | 2:45 | Read-only Elasticsearch app key and OpenAI key for `talkbridge-secrets` (via password manager) |
 | Both | Both | 3:45 | Agree the demo incident (S3) |
 
 Secrets are exchanged only through a password manager’s secure share (or typed directly on the other laptop) — never chat, Notion, Slack, Discord, email or the repo.
@@ -123,8 +125,8 @@ Secrets are exchanged only through a password manager’s secure share (or typed
 
 | Time | Presenter | Content |
 | --- | --- | --- |
-| 0:00–1:20 | A | Problem, recommend + hybrid vs keyword, Spanish plain-language guide, keyboard-only |
-| 1:20–2:30 | B | Dash0 dashboard/trace/logs/RUM/SLO, then the real incident: Radar / Agent0 → PR → Gitar → Argo CD → recovery |
+| 0:00–1:20 | Hemanth | Problem, recommend + hybrid vs keyword, Spanish plain-language guide, keyboard-only |
+| 1:20–2:30 | Rahul | Dash0 dashboard/trace/logs/RUM/SLO, then the real incident: Radar / Agent0 → PR → Gitar → Argo CD → recovery |
 | 2:30–3:00 | Both | Architecture, what each built, Q&A readiness (each can answer about the other’s half) |
 
 ## After 5:30 (both)
