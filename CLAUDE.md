@@ -5,7 +5,7 @@
 TalkBridge helps conference attendees find the right talk (Elasticsearch hybrid search + recommendations) and get a grounded preparation guide in their language and reading level (OpenAI). Built today at the WeMakeDevs Cloud Native Hackathon (Salt Lake City, 2026-11-09). **Submission deadline: 5:30 PM MT.**
 
 - Full build guide (source of truth for code): https://app.notion.com/p/cc653c004823826ab0268135a7b4d1a9 — phases 0–14.
-- Who does what, when: [docs/PLAN.md](docs/PLAN.md). Before starting work, ask which engineer you are working for (A = App & Search, B = Platform & Observability) and stay inside that engineer's owned files.
+- Who does what, when: [docs/PLAN.md](docs/PLAN.md). Before starting work, ask which engineer you are working for — **Hemanth (A, App & Search)** or **Rahul (B, Platform & Observability)** — and stay inside that engineer's owned files.
 
 ## Hard rules
 
@@ -23,18 +23,18 @@ TalkBridge helps conference attendees find the right talk (Elasticsearch hybrid 
 - **NodeSDK options:** `metricReaders: [new PeriodicExportingMetricReader(...)]` (plural array), `logRecordProcessors: [...]`, `traceExporter`. `resourceFromAttributes` from `@opentelemetry/resources`.
 - **Node 24** locally and in CI; use `node:24-alpine` in the Dockerfile.
 - `next dev` re-adds a block to AGENTS.md; commit it rather than fighting it.
-- All npm dependencies are already installed. Ask before adding new ones (Engineer B owns `package.json` to avoid lockfile conflicts); the Dash0 web SDK is the one expected addition (B, task B7).
+- All npm dependencies are already installed. Ask before adding new ones (Rahul owns `package.json` to avoid lockfile conflicts); the Dash0 web SDK is the one expected addition (Rahul, task B7).
 
 ## Layout
 
 ```
 src/lib/types.ts, options.ts, telemetry.ts, rate-limit.ts, elastic.ts   shared contracts (frozen after PR #1)
-src/app/api/{search,facets,recommend,prepare}/route.ts                  Engineer A (stubs return 501)
-src/app/page.tsx                                                         Engineer A (UI, accessibility)
-scripts/seed.mjs, data/sessions.json                                     Engineer A
-src/app/api/health/route.ts, src/instrumentation*.ts, src/app/rum.tsx    Engineer B
-src/app/layout.tsx, next.config.ts, package.json                         Engineer B
-.github/, .gitar/, Dockerfile, .dockerignore, k8s/                       Engineer B
+src/app/api/{search,facets,recommend,prepare}/route.ts                  Hemanth (A) (stubs return 501)
+src/app/page.tsx                                                         Hemanth (A) (UI, accessibility)
+scripts/seed.mjs, data/sessions.json                                     Hemanth (A)
+src/app/api/health/route.ts, src/instrumentation*.ts, src/app/rum.tsx    Rahul (B)
+src/app/layout.tsx, next.config.ts, package.json                         Rahul (B)
+.github/, .gitar/, Dockerfile, .dockerignore, k8s/                       Rahul (B)
 README.md, docs/                                                         both (B drafts README)
 ```
 

@@ -1,4 +1,4 @@
-// SHARED CONTRACT — owned jointly by Engineer A and B. Change only with both agreeing (see docs/PLAN.md).
+// SHARED CONTRACT — owned jointly by Hemanth (A) and Rahul (B). Change only with both agreeing (see docs/PLAN.md).
 
 export type Session = {
   id: string;
