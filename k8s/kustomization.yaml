@@ -1,0 +1,14 @@
+# Argo CD deploys this folder to our team namespace. On main the image tag stays
+# "latest"; the build-and-deploy workflow copies this folder to the "deploy" branch
+# with the exact image tag (commit SHA), and Argo CD watches that branch.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: team-talkbridge
+resources:
+  - deployment.yaml
+  - service.yaml
+  - httproute.yaml
+images:
+  - name: app
+    newName: ghcr.io/talkbridge-team/talkbridge
+    newTag: deddcb4
