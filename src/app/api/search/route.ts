@@ -55,14 +55,23 @@ export async function GET(request: NextRequest) {
     bool: { must: { semantic: { field: "content", query: q } }, filter: filters },
   };
 
+  // Full request parameters are recorded on purpose (team decision): TalkBridge is a public
+  // app and we want to see what attendees search for. Keep this list in sync with the UI notice.
+  const requestAttributes = {
+    "talkbridge.search.query": q,
+    "talkbridge.search.mode": mode,
+    "talkbridge.search.requested_mode": requested ?? "",
+    "talkbridge.search.filter.track": params.get("track") ?? "",
+    "talkbridge.search.filter.level": params.get("level") ?? "",
+    "talkbridge.search.filter.day": params.get("day") ?? "",
+    "talkbridge.search.query_length": q.length,
+    "talkbridge.search.filter_count": filters.length,
+  };
+
   try {
     const result = await observe(
       "talkbridge.search",
-      {
-        "talkbridge.search.mode": mode,
-        "talkbridge.search.query_length": q.length,
-        "talkbridge.search.filter_count": filters.length,
-      },
+      requestAttributes,
       async (span) => {
         const es = getElasticClient();
         const found =
@@ -98,7 +107,7 @@ export async function GET(request: NextRequest) {
       hit._source ? [hit._source] : []
     );
     log("INFO", "search completed", {
-      "talkbridge.search.mode": mode,
+      ...requestAttributes,
       "talkbridge.search.result_count": sessions.length,
     });
     return NextResponse.json<SearchResponse>({ mode, sessions });

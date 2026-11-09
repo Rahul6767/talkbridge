@@ -216,7 +216,7 @@ export function TalkBridgeApp() {
                 className={field}
               />
               <p id="background-hint" className="mt-1 text-sm text-slate-300">
-                Sent only to our search and AI providers to tailor results and guides. TalkBridge does not save it. Please leave out names, employers or other personal details.
+                Sent to our search and AI providers to tailor results, and recorded in our monitoring logs along with your searches. Please leave out names, employers or other personal details.
               </p>
             </div>
             <div>

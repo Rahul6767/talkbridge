@@ -33,6 +33,15 @@ export async function POST(request: Request) {
     );
   }
 
+  // Full request parameters are recorded on purpose (team decision; see the UI notice).
+  // The generated guide itself is not recorded.
+  const requestAttributes = {
+    "talkbridge.session.id": sessionId,
+    "talkbridge.prepare.background": background,
+    "talkbridge.guide.language": String(language),
+    "talkbridge.guide.reading_level": String(readingLevel),
+  };
+
   try {
     // The browser only sends an id, so it cannot change what the abstract says.
     const session = await observe(
@@ -65,10 +74,9 @@ export async function POST(request: Request) {
     const guide = await observe(
       "talkbridge.guide.generate",
       {
+        ...requestAttributes,
         "talkbridge.ai.provider": "openai",
         "talkbridge.ai.model": model,
-        "talkbridge.guide.language": String(language),
-        "talkbridge.guide.reading_level": String(readingLevel),
       },
       async (span) => {
         // Development-only fault injection for the demo backup (Notion Phase 10).
@@ -138,8 +146,7 @@ export async function POST(request: Request) {
     );
 
     log("INFO", "guide generated", {
-      "talkbridge.guide.language": String(language),
-      "talkbridge.guide.reading_level": String(readingLevel),
+      ...requestAttributes,
       "talkbridge.guide.length": guide.length,
     });
     return NextResponse.json<PrepareResponse>({ guide, language: String(language) });
