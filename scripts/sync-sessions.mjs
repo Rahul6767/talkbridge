@@ -4,8 +4,8 @@
 //   node --env-file=.env.local scripts/sync-sessions.mjs --dry-run   # read-only: show what would change
 //   node --env-file=.env.local scripts/sync-sessions.mjs             # apply changes
 //
-// Writes use ELASTICSEARCH_SYNC_API_KEY (falls back to ELASTICSEARCH_SEED_API_KEY).
-// A dry run only reads, so the read-only ELASTICSEARCH_API_KEY is enough.
+// Writes use ELASTICSEARCH_SYNC_API_KEY.
+// A dry run only reads, so it can fall back to the read-only ELASTICSEARCH_API_KEY.
 // Required key privileges for writes, on index talkbridge-sessions: read, write,
 // view_index_metadata, manage (manage is only for the additive putMapping of sync fields).
 import { Client } from "@elastic/elasticsearch";
@@ -20,10 +20,8 @@ const SOURCES = [kubecon];
 const dryRun = process.argv.includes("--dry-run");
 const node = process.env.ELASTICSEARCH_URL;
 const apiKey = dryRun
-  ? process.env.ELASTICSEARCH_SYNC_API_KEY ||
-    process.env.ELASTICSEARCH_SEED_API_KEY ||
-    process.env.ELASTICSEARCH_API_KEY
-  : process.env.ELASTICSEARCH_SYNC_API_KEY || process.env.ELASTICSEARCH_SEED_API_KEY;
+  ? process.env.ELASTICSEARCH_SYNC_API_KEY || process.env.ELASTICSEARCH_API_KEY
+  : process.env.ELASTICSEARCH_SYNC_API_KEY;
 
 if (!node || !apiKey) {
   console.error(
