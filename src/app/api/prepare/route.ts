@@ -86,7 +86,9 @@ export async function POST(request: Request) {
         const generated = await openai.responses.create({
           model,
           store: false,
-          max_output_tokens: 1600,
+          // ~450 words; headroom for token-heavy scripts (hi, ja, zh) and for
+          // reasoning models, whose reasoning tokens count against this cap.
+          max_output_tokens: 4000,
           instructions: buildInstructions(
             LANGUAGES[language],
             READING_LEVELS[readingLevel]
@@ -103,9 +105,7 @@ export async function POST(request: Request) {
           }),
         });
 
-        const text = generated.output_text?.trim();
-        if (!text) throw new Error("The model returned an empty guide.");
-
+        // Record usage first: a truncated response still consumed tokens.
         if (generated.usage) {
           span.setAttribute("talkbridge.ai.input_tokens", generated.usage.input_tokens);
           span.setAttribute("talkbridge.ai.output_tokens", generated.usage.output_tokens);
@@ -118,6 +118,19 @@ export async function POST(request: Request) {
             "talkbridge.ai.direction": "output",
           });
         }
+
+        // A response cut off at max_output_tokens (or by a content filter) still has
+        // partial output_text; never return a guide that stops mid-way as a success.
+        if (generated.status === "incomplete") {
+          span.setAttribute(
+            "talkbridge.ai.incomplete_reason",
+            String(generated.incomplete_details?.reason ?? "unknown")
+          );
+          throw new Error("The model returned an incomplete guide.");
+        }
+
+        const text = generated.output_text?.trim();
+        if (!text) throw new Error("The model returned an empty guide.");
         return text;
       }
     );
