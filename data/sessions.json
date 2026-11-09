@@ -1,0 +1,13 @@
+[
+  {
+    "id": "fictional-k8s-101",
+    "title": "Kubernetes for Application Developers",
+    "speakers": ["Demo Speaker A"],
+    "track": "Application Development",
+    "level": "Beginner",
+    "day": "2026-11-10",
+    "room": "Demo",
+    "abstract": "Learn how containers, pods, deployments and services work together, and how desired state and reconciliation keep an app running.",
+    "sourceUrl": ""
+  }
+]
