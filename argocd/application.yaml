@@ -1,0 +1,21 @@
+# Apply once (through Radar's MCP server, Radar Cloud, or kubectl). From then on
+# Argo CD deploys k8s/ from the "deploy" branch, which the build-and-deploy
+# workflow updates after every merge to main. The repo must stay public.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app
+  namespace: team-talkbridge
+spec:
+  project: team-talkbridge
+  source:
+    repoURL: https://github.com/talkbridge-team/talkbridge.git
+    targetRevision: deploy
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: team-talkbridge
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

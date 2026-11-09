@@ -1,0 +1,62 @@
+# Owner: Rahul (B) — task B8. Named "app" so Argo CD takes over the starter's
+# Deployment in place (the platform routes https://talkbridge.cnh.radarhq.io to Service app).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+    app.kubernetes.io/name: talkbridge
+spec:
+  # Two pods so a rollout or one crashing pod doesn't take the site down.
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+        app.kubernetes.io/name: talkbridge
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: web
+          image: app # replaced by kustomization.yaml (set by the GitHub Action)
+          ports:
+            - name: http
+              containerPort: 8080
+          # Elasticsearch, OpenAI and OTEL settings. The Secret is created in the
+          # cluster by hand (never in git); see README "Deploy".
+          envFrom:
+            - secretRef:
+                name: talkbridge-secrets
+          env:
+            - name: DEPLOYMENT_ENVIRONMENT
+              value: hackathon
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
