@@ -58,11 +58,58 @@ export function parseSchedule(html) {
   return { cards: cards.length, sessions, skipped };
 }
 
-export async function fetchSessions() {
+// Sessionize custom questions used on this event's speaker profiles.
+const QUESTION_COMPANY = 128829;
+const QUESTION_TITLE = 128830;
+const LINK_TYPES = new Set(["LinkedIn", "Twitter", "Blog", "Company_Website", "Sessionize", "Other"]);
+
+/**
+ * Speaker profiles from the page's embedded Sessionize data (<script class="sched-data">).
+ * Everything here was published by the speakers themselves on the official schedule,
+ * including the LinkedIn and other links they chose to share.
+ */
+export function parseSpeakers(html) {
+  const json = /<script type="application\/json" class="sched-data">([\s\S]*?)<\/script>/.exec(html)?.[1];
+  if (!json) return { speakers: [], skipped: [] };
+  const all = JSON.parse(json).all ?? {};
+  const speakers = [];
+  const skipped = [];
+  for (const raw of all.speakers ?? []) {
+    const name = (raw.fullName ?? "").trim();
+    if (!raw.id || !name) {
+      skipped.push({ id: String(raw.id ?? "?"), reason: "no id or name" });
+      continue;
+    }
+    const answer = (questionId) =>
+      (raw.questionAnswers ?? []).find((q) => q.questionId === questionId)?.answerValue?.trim() ?? "";
+    speakers.push({
+      id: `${ID_PREFIX}spk-${raw.id}`,
+      fullName: name,
+      tagLine: (raw.tagLine ?? "").trim(),
+      company: answer(QUESTION_COMPANY),
+      title: answer(QUESTION_TITLE),
+      bio: (raw.bio ?? "").replace(/\r\n/g, "\n").trim(),
+      photoUrl: /^https:\/\//.test(raw.profilePicture ?? "") ? raw.profilePicture : "",
+      links: (raw.links ?? [])
+        .filter((l) => LINK_TYPES.has(l.linkType) && /^https:\/\//.test(l.url ?? ""))
+        .map((l) => ({ type: l.linkType, url: l.url })),
+      sessionIds: (raw.sessions ?? []).map((n) => `${ID_PREFIX}${n}`),
+    });
+  }
+  return { speakers, skipped };
+}
+
+/** One request for the whole schedule page; sessions and speakers come from the same HTML. */
+export async function fetchSchedule() {
   const url = process.env.KUBECON_SCHEDULE_URL || DEFAULT_URL;
-  const result = parseSchedule(await fetchText(url));
-  if (result.cards === 0) {
+  const html = await fetchText(url);
+  const sessions = parseSchedule(html);
+  if (sessions.cards === 0) {
     throw new Error("No session cards found; the schedule page layout may have changed.");
   }
-  return result;
+  return { ...sessions, speakerData: parseSpeakers(html) };
+}
+
+export async function fetchSessions() {
+  return fetchSchedule();
 }
