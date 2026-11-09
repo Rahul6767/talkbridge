@@ -25,14 +25,18 @@ export async function POST(request: Request) {
     ? `I want to learn: ${goal}. My background: ${background}`
     : `Talks useful for someone with this background: ${background}`;
 
+  // Full request parameters are recorded on purpose (team decision; see the UI notice).
+  const requestAttributes = {
+    "talkbridge.recommend.background": background,
+    "talkbridge.recommend.goal": goal,
+    "talkbridge.recommend.background_length": background.length,
+    "talkbridge.recommend.has_goal": goal.length > 0,
+  };
+
   try {
     const result = await observe(
       "talkbridge.recommend",
-      {
-        // Lengths only: background and goal are attendee text and never go into telemetry.
-        "talkbridge.recommend.background_length": background.length,
-        "talkbridge.recommend.has_goal": goal.length > 0,
-      },
+      requestAttributes,
       async (span) => {
         const found = await getElasticClient().search<Session>({
           index: SESSION_INDEX,
@@ -49,6 +53,7 @@ export async function POST(request: Request) {
       hit._source ? [hit._source] : []
     );
     log("INFO", "recommendations returned", {
+      ...requestAttributes,
       "talkbridge.search.result_count": sessions.length,
     });
     return NextResponse.json<RecommendResponse>({ sessions });
