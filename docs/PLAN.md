@@ -115,7 +115,7 @@ Secrets are exchanged only through a password manager’s secure share (or typed
 ## Definition of done (every PR)
 
 - Branch named `a/…` or `b/…`; small and focused; only your own files.
-- `npx eslint . && npx tsc --noEmit && npm run build` pass locally; `gitleaks git -v` clean.
+- `npx eslint . && npx next typegen && npx tsc --noEmit && npm run build` pass locally; `gitleaks git -v` clean.
 - Gitar review addressed; CI green; PR description explains the change in your own words.
 - No secrets, no user text in telemetry, no `runtime`/`dynamic` exports in routes.
 

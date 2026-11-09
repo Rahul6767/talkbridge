@@ -43,6 +43,6 @@ README.md, docs/                                                         both (B
 ```bash
 npm run dev                                         # local app on :3000
 node --env-file=.env.local scripts/seed.mjs --reset # (re)load sessions into Elasticsearch
-npx eslint . && npx tsc --noEmit && npm run build   # same checks as CI
+npx eslint . && npx next typegen && npx tsc --noEmit && npm run build   # same checks as CI
 gitleaks git -v                                     # before every push
 ```
