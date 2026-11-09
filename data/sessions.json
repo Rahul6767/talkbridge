@@ -1,8 +1,972 @@
 [
   {
+    "id": "kubecon-na-2026-1205589",
+    "title": "Turning Apple Silicon into Production GPU Nodes for LLM Inference on Kubernetes",
+    "speakers": [
+      "Christopher Maher"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Advanced",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom H",
+    "abstract": "Organizations in regulated industries need AI inference on infrastructure they control, but NVIDIA GPUs are expensive and scarce. Apple Silicon devices with large unified memory pools sit underutilized.\n\nThis talk shows how we extended Kubernetes to schedule AI inference across heterogeneous GPU hardware, including Apple Silicon via Metal, using pluggable runtime backends. We cover a controller-runtime operator managing model lifecycle, multi-GPU layer sharding, and health probing across runtimes like llama.cpp for text generation and Moshi for speech-to-speech.\n\nAttendees learn patterns for reconciling inference workloads with CRDs, pre-flight memory validation for GPU nodes, Prometheus metrics via PodMonitors, and multi-runtime inference behind an OpenAI-compatible API. We share benchmarks comparing NVIDIA CUDA and Apple Silicon Metal and the operational tradeoffs of each.\n\nA practitioner talk from an enterprise platform engineering team deploying on-prem AI inference at scale.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1205589"
+  },
+  {
+    "id": "kubecon-na-2026-1208416",
+    "title": "Transforming Retail with AI: From Automation to Autonomous Decisioning",
+    "speakers": [
+      "Arunkumar Amaran"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Beginner",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom H",
+    "abstract": "Artificial Intelligence is reshaping retail by enabling a shift from traditional automation to autonomous decision-making systems. This talk explores how modern retail organizations leverage AI, real-time data pipelines, and cloud-native architectures to transform data into actionable intelligence.\n\nThe session highlights the evolution from batch-based processing to event-driven systems, where AI models are integrated into operational workflows to support real-time decisions in areas such as pricing, supply chain, and customer analytics. It also discusses key architectural patterns, including streaming data platforms and intelligent automation frameworks.\n\nThrough practical insights and real-world examples, the talk demonstrates how autonomous decisioning improves efficiency, scalability, and customer experience. It also addresses challenges related to data governance, observability, and responsible AI adoption, providing a roadmap for building future-ready retail systems.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1208416"
+  },
+  {
+    "id": "kubecon-na-2026-1202489",
+    "title": "Securing Rural Colorado with Open Source: Running a Student-Led SOC on Kubernetes",
+    "speakers": [
+      "Maciej Wal"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "When a previous supplier dropped support for Colorado in the spring of 2024, the Cybersecurity Center at Metropolitan State University of Denver needed to build a replacement quickly.\n\nWhat started as four virtual machines scaled into a multi-cluster Kubernetes platform. Keycloak for multi-tenant identity, ArgoCD for GitOps, OPA Gatekeeper for policy, Envoy Gateway for traffic management, and cert-manager for TLS. All running in production for roughly $1,000 a month.\n\nThe core SOC runs on OpenSearch with Fluent Bit and Suricata, where student security analysts investigate real threats from live data. Student developers maintain the platform infrastructure itself, contributing to GitOps workflows and operations. Both groups gain hands-on experience with CNCF projects used in production worldwide.\n\nThis talk covers architecture decisions, the VM-to-Kubernetes migration, how we built a community around students and underserved organizations, and the mistakes made along the way.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1202489"
+  },
+  {
+    "id": "kubecon-na-2026-1226654",
+    "title": "From Consumers to Contributors: How Growing Open Source Members Transformed Our ML Platform Team",
+    "speakers": [
+      "Tolga Tuncoglu",
+      "Herik Webb"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "Most enterprise teams consume open source but don't prioritize earning community membership — leaving a huge opportunity on the table. This talk shares how an engineering leadership team at Capital One grew its Kubeflow Pipelines team from a single contributor to five recognized community members and two maintainers in just over a year.\n\nThe speakers describe the journey from passive dependency on an open source project to full ownership of a business-critical legacy version — reducing critical vulnerability patch turnaround from 30–60 days to 3–5 days, shipping upstream features, improving testing and resilience, and maintaining engineering joy — all while getting ahead of the EU Cyber Resilience Act.\n\nAttendees will learn a practical framework for growing engineers from consumers to maintainers, how to make the business case for contribution time, metrics to track membership growth, and the connection between open source participation and upcoming regulatory requirements.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1226654"
+  },
+  {
+    "id": "kubecon-na-2026-1246066",
+    "title": "AI-DDoS: How AI-Generated Contributions Are Breaching OSS Communities, and What We Can Do about It",
+    "speakers": [
+      "Zixuan Feng"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "OSS communities are sounding the alarm that AI-generated contributions are flooding their projects. Much like a DDoS attack overwhelms a server with excessive requests until it goes offline, this flood can overwhelm maintainers and push projects to shut their doors. We call it AI-DDoS. Some projects are already responding defensively: closing bug bounties, moving to invitation-only models, or rejecting unsolicited pull requests. These responses may address the immediate symptoms, yet they risk closing the door to new contributors, upending their ecosystem.\n\nWe analyzed over 2 million PRs and issues from 350,000+ contributors across 294 widely used repositories. Our findings show that AI-DDoS is a structural, ecosystem-wide pressure on the OSS contribution pipeline. From this evidence, we developed 11 practitioner-driven strategies that projects can use to manage AI-DDoS while balancing openness, maintainer capacity, and their stance toward AI-assisted contributions.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1246066"
+  },
+  {
+    "id": "kubecon-na-2026-1247526",
+    "title": "Kubernetes Anonymous: Confessions of Kubernetes Cargo Cultists",
+    "speakers": [
+      "Taylor Thomas",
+      "Brooks Townsend"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "We've been knee-deep in Kubernetes since the early days: maintaining Helm, building Krustlet, provisioning internal clusters with Cluster API, containerizing applications, the whole shebang. Eventually, we swore it off and worked on Wasm because we were tired of watching people hammer everything to fit into a Kubernetes-shaped hole. Now we find ourselves back in it again after learning that both extremes are traps: putting everything in Kubernetes and pretending it doesn’t exist.\n\nIn this talk, we'll cover the red flags that signal you're using Kubernetes where you shouldn't, and where it actually shines. Then we’ll talk about the happy middle: cloud-native over Kubernetes-native. We’ll share our success stories and gotchas using CNCF projects both inside and outside of the Kubernetes space, including projects like wasmCloud, NATS, Cilium, and OPA. You’ll walk away with a concrete set of guidelines to help you find that middle ground in your own stack.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247526"
+  },
+  {
+    "id": "kubecon-na-2026-1248038",
+    "title": "LTS, EOL, CVEs: Solutions for Stress-Inducing Scenarios",
+    "speakers": [
+      "Bridget Kromhout",
+      "Lachlan Evenson"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "Everybody wants the latest and greatest bits, right? But for the essential infrastructure that powers our world, shiny new releases may bring shiny new bugs. Where stability is top priority, the frenetic pace of an upgrade treadmill may not match your real needs.\n\nMore time for upgrades is appealing, though when looking at an LTS support cycle versus the release schedules of ancillary software installed on your systems, the fault lines start to show. If part of your system goes EOL before the rest can be changed, you risk having a CVE-shaped problem.\n\nIn an LTS environment, relicensing or forks can limit your ability to ingest necessary patches. And if your upstreams aren’t patching any more, you have a maintainability problem, where AI-fueled zero-days can appear faster than AI-assisted patches.\n\nResolving these conflicts is complex; we’ll detail how to approach it. You’ll leave ready to balance tradeoffs inherent in extended-period software support while also keeping systems secure.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1248038"
+  },
+  {
+    "id": "kubecon-na-2026-1249724",
+    "title": "Ground Control to Major Tom: We Need your Public Cloud in our Private Cloud",
+    "speakers": [
+      "Andrew Block",
+      "Mike Wilson"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "As with many large organizations, cloud native adoption and use often begins in pockets. However, even as innovative patterns are developed and usage increases, some teams within the same organization can remain unaware.\n\nThis was true at Adobe. While the public cloud platform team were building leadership internally and credibility in the cloud native community, Adobe’s private cloud teams were busy focusing on other efforts. When business needs shifted, it needed to move quickly to a cloud-first architecture.\n\nIn this session, learn how a team managing traditional infrastructure rapidly pivoted their technology stack and approaches using solutions such as Kubernetes, Argo CD, and KubeVirt. We’ll highlight the traits that made their journey successful, including developing reusable assets, establishing strong partnerships, and community engagement. Beyond the technology, this talk shows how tough transformation challenges can be achieved with the right ingredients and approach.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249724"
+  },
+  {
+    "id": "kubecon-na-2026-1250961",
+    "title": "Zero to Maintainer in 45 Days: An AI-Assisted Migration of a CNCF Project's Legacy Frontend",
+    "speakers": [
+      "Jeff Spahr"
+    ],
+    "track": "Cloud Native Experience",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "Every mature codebase earns a backlog item that's too daunting to complete. For Kubeflow Pipelines it was the frontend: an aging Create React App on end-of-life packages with a dated Jest + Enzyme suite - attempted before, never finished.\n\nWhat changed was timing. An inflection point in AI coding agents made this kind of work - mechanical, well-specified, backed by tests - finally tractable: CRA to Vite, Enzyme to Vitest + Testing Library, React 16 to 19.\n\nBut agents didn't do it alone, and neither did I. This talk is what a career in engineering still brings: spotting patterns, steering an agent with the right questions, knowing when it's confidently wrong, and earning the trust of a community of contributors and maintainers who shaped and reviewed the work. You'll leave knowing how to spot the work that fits this AI moment, and to do it in a way maintainers welcome.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250961"
+  },
+  {
+    "id": "kubecon-na-2026-1202627",
+    "title": "I Packaged My Application in a Container Image, and Now What?",
+    "speakers": [
+      "Aurélie Vache"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Have you managed to build your application as a container image, with Docker or Podman, and push it into an image/artifact registry? Congratulations... but the work is not finished 🙂.\nNow it’s time to implement the best practices of Supply Chain Security Software!\n\n- Why and how to sign an image?\n- Why and how to generate the inventory of my image?\n- Does my image have vulnerabilities? Are they exploitable?\n- What is the purpose of attestations?\n- How to automate all this?\n\nIn this talk, step by step, with a mix of slides and live demos, we will see all that, and much more.\n\nYou will know how to implement these best practices, locally and even in your CI/CD pipelines.\n\nAnd bonus track, after this talk terms like 'cosign', 'sbom', 'vex', 'in-toto'... will no longer have any secrets for you!",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1202627"
+  },
+  {
+    "id": "kubecon-na-2026-1249351",
+    "title": "Next Generation DevOps: Reshaping the Cloud Native DevOps Infinity Loop with AI",
+    "speakers": [
+      "Rey Lejano"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Beginner",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Plan, Code, Build, Test, Release, Deploy, Operate, Monitor, and repeat. This is the DevOps infinity loop the industry has been accustomed to since 2013, and it has symbiotically evolved alongside Cloud Native, but AI is reshaping every phase. This session introduces “Next Generation DevOps”; a framework for embedding AI in each phase of the DevOps infinity loop to accelerate & automate and where humans remain in the loop for accountability: architectural design record generation, code assistance, dependency agent, pipelines as agentic targets, generated TDD & unit tests, GitOps, rollout agent, canary plan generation, SRE runbook agent, anomaly and postmortem agent. Attendees leave with a framework for infusing AI into DevOps in the context of Cloud Native, including ArgoCD, Tekton, Kubernetes, Prometheus, OTEL, OPA, and more.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249351"
+  },
+  {
+    "id": "kubecon-na-2026-1241594",
+    "title": "No Network? No Problem: How We Designed for Kubernetes Nodes Running in Air-Gapped VPCs",
+    "speakers": [
+      "Shachar Tal"
+    ],
+    "track": "Connectivity",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "Konnectivity (apiserver-network-proxy) requires a gRPC connection from agent to server. To protect sensitive workloads from data exfiltration, the speaker's org runs Kubernetes nodes in cloud VPCs with zero egress - no NAT Gateway, no route to the API server - making Konnectivity unusable.\n\nThis talk presents a fork that replaces the gRPC link with cloud object storage, accessed via private endpoints, as a rendezvous medium. The speaker walks through cluster network design and bucket transport architecture; how kubectl exec and kubectl logs sessions are multiplexed as sequenced bucket objects; and how proxy-server and proxy-agent coordinate ordered, reliable delivery without a persistent connection.\n\nObject storage introduces hard tradeoffs in latency, cost, and cluster networking. The talk covers design choices made to reduce cloud costs at scale and achieve sub-second interactive latency over a store-and-forward medium. Includes a demo with zero-egress worker VMs.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1241594"
+  },
+  {
+    "id": "kubecon-na-2026-1244710",
+    "title": "Will Your Gateway Leave You High and Dry?",
+    "speakers": [
+      "John Howard",
+      "Mitch Connors"
+    ],
+    "track": "Connectivity",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "A gateway that looks flawless in a demo can collapse under production load. Routes churn, connection limits get pushed to the brink, and the architectural trade-offs hiding beneath modern gateway controllers suddenly matter.\nThis session moves beyond \"Hello World\" to expose what actually breaks at scale. Drawing from open-source benchmarking data across Envoy Gateway, Nginx, Agentgateway, Istio, and more, we dig into real failure modes: dropped connections during zero-downtime route updates, control planes consuming 100x more resources under churn, and latency spikes during route propagation.\n\nAs CNCF maintainers, we bring a data-driven framework for evaluating gateway implementations from real systems under stress.\nYou'll leave with empirical benchmarks and concrete strategies for selecting and tuning a Gateway API architecture that holds up in the reality of day-two operations.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1244710"
+  },
+  {
+    "id": "kubecon-na-2026-1227395",
+    "title": "Why We Bet the Data Platform on Kubernetes - And How AI Is Changing How We Operate It",
+    "speakers": [
+      "Vara Bonthu",
+      "Ying Xiong",
+      "Rainie Li",
+      "Damon Cortesi",
+      "Padma Aradhyula"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Beginner",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "Kubernetes has quietly become the default substrate for petabyte-scale data processing. Salesforce, Pinterest, Airbnb, and Apple all run native Spark, Flink, Trino, StarRocks, and Iceberg on Kubernetes at a scale the platform was never designed for.\n\nThis panel of end-user operators talks about two things data leaders keep asking about. First, what does it actually take to run large-scale data on Kubernetes? Shuffle bottlenecks and Apache Celeborn, stateful upgrades, multi-tenant scheduling with YuniKorn and Kueue, Iceberg storage layouts, mixed CPU and GPU. Each panelist shares what broke at scale and how they fixed it.\n\nSecond, how are AI agents changing day-2 operations? Troubleshooting agents for Spark and Flink, MCP servers for Spark History Server, agentic upgrade planning, autonomous tuning, AI-driven governance and lineage. Where are teams seeing real productivity gains, and where do agents still get it wrong?\n\nProduction stories, real disagreements, no vendor pitches.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1227395"
+  },
+  {
+    "id": "kubecon-na-2026-1250980",
+    "title": "Feeding the GPU: Streaming Data into Training, Lakehouse, and Serving without the Serialization Tax",
+    "speakers": [
+      "Dheeraj Kapur",
+      "Deepak Choudhary"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Every AI and analytics system pays the same hidden cost: moving streaming data from where it's produced to where it's used — GPUs for training, tables for analytics, indexes for serving. The usual path re-serializes every row (JSON, protobuf) and grows a separate pipeline per destination. We show a different foundation, running in production on Kubernetes: keep data columnar end-to-end with Apache Arrow, and move it once over Arrow Flight. One write from a producer becomes durable, then lands everywhere it's needed — into GPU memory with no copy, into Delta Lake and Iceberg tables, and into serving systems like Pinot and ClickHouse. Because nothing is re-serialized on the hot path, moving data barely uses CPU; the real work is durability and commit. We cover the fundamentals — columnar transport, decoupling acks from slow sinks, idempotent commits, recovery after pod failure — and share real numbers from a multi-tenant cluster.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250980"
+  },
+  {
+    "id": "kubecon-na-2026-1239823",
+    "title": "Tracing at Scale: Running a 16 Billion Spans/Hour Pipeline at Nubank",
+    "speakers": [
+      "Felipe Araujo",
+      "Kaynan Coelho"
+    ],
+    "track": "Observability",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "When off-the-shelf solutions stop scaling, you build your own or break trying.\n\nAt Nubank, distributed tracing isn't a nice-to-have: it's the backbone of observability across thousands of microservices, processing hundreds of billions of spans every day with zero tolerance for data loss. When the need for full ownership and operational independence became clear, we built a hybrid pipeline from the ground up.\n\nThis talk walks through the full tracing journey at Nubank,  from instrumentation strategy to a production-grade pipeline operating at petabyte scale. We'll cover how the OpenTelemetry Collector serves as our ingestion backbone, the architectural decisions that made the system resilient, the failure modes we didn't anticipate, and the hard-learned trade-offs behind blending open-source tooling with purpose-built internal components.\n\nYou'll leave with a realistic picture of what it takes to run distributed tracing at scale.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1239823"
+  },
+  {
+    "id": "kubecon-na-2026-1243292",
+    "title": "From Traceroute to OTel Traces: Modeling Network Paths with OpenTelemetry",
+    "speakers": [
+      "Antonio Jimenez Martinez"
+    ],
+    "track": "Observability",
+    "level": "Advanced",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "Distributed traces show how requests move across services, but they dont explain what happened on the network side. When latency, packet loss, routing changes, or unreachable hops affect an application, engineers still must leave their observability workflow and reason from separate network tools.\n\nThis session shows how traceroute-style path measurements can be modelled as OpenTelemetry traces. By representing each hop with spans, timing metadata, reachability information, and network attributes, path behaviour becomes part of the same telemetry model used for application debugging.\n\nWe will cover the trace model, span hierarchy, timestamp normalization, incomplete paths, unknown hops, and strategies for linking network-path traces with application traces for end-to-end correlation. Through a live demo, attendees will see network paths rendered as trace waterfalls and service maps, making it possible to connect application symptoms with the network behaviour behind them.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1243292"
+  },
+  {
+    "id": "kubecon-na-2026-1246259",
+    "title": "How Far Are Open-Source LLMs from Running Real Kubernetes Operations? A 10-Scenario Benchmark",
+    "speakers": [
+      "Hoon Jo"
+    ],
+    "track": "Operations + Performance",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Most of the AI conversation in Kubernetes is about running LLMs on top of it. This session asks the opposite. Can an LLM run Kubernetes?\n\nOperations teams now face a choice. They are being asked to bring AI into incident response while keeping cluster state inside the perimeter. A capable open-source LLM now runs on a single workstation, so the option exists. The question is whether the option is real.\n\nThis session answers with a published benchmark of 10 Kubernetes incident scenarios (crash loops, OOM kills, HPA misconfigurations), each scored by an Ops_Score where quality and safety gate the result and efficiency only adjusts it. The same benchmark already ran on today's leading agents, giving open-source families such as Gemma, Llama, and Qwen a bar to measure against.\n\nRather than crown a winner, the session maps the gap to that bar. The results show where open-source models hold up, where they fall short, and where they take unsafe actions an on-call engineer must override.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1246259"
+  },
+  {
+    "id": "kubecon-na-2026-1249997",
+    "title": "Surviving the Churn: Read Replicas and Controllers for Busy Kubernetes Clusters",
+    "speakers": [
+      "Ryan Brewster"
+    ],
+    "track": "Operations + Performance",
+    "level": "Advanced",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "Kubernetes scales until it has to synchronize. Every write serializes through one ordered log, and every read funnels through lock-guarded caches: the apiserver's watch cache, and the informer caches inside every controller. Make the cluster busy enough (ceiling: ~10-16k mutations/s) and synchronization becomes the limit: caches lag, watchers get 410 Gone, and controllers reconcile against a world that no longer exists.\n\nThis talk is how Anthropic has improved Kubernetes stability by augmenting the control plane: in-cluster read replicas that take LIST and WATCH traffic off the apiserver, and controllers designed to stay functional at high mutation rates. The war story: the same innocuous LIST shape pushed a cluster of tens of thousands of nodes into an apiserver doom spiral twice in two weeks, from two different callers; only a read replica really fixes it. Along the way: what a stock controller does when its informer cache goes stale, and the data structures that avoid the trap.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249997"
+  },
+  {
+    "id": "kubecon-na-2026-1223002",
+    "title": "You Don’t Have to Choose: Argo and Flux Are Friends!",
+    "speakers": [
+      "Emily Chen",
+      "Leigh Capili"
+    ],
+    "track": "Platform Engineering",
+    "level": "Advanced",
+    "day": "2026-11-10",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "For years, the GitOps conversation has been framed as a binary choice: Argo or Flux. But as platform engineering matures, it has been proven that these two projects aren’t mutually exclusive, rather, they are complementary.\n\nIn this session, Argo and Flux join forces to challenge the animosity that is traditionally perceived between the two projects. Grounded in the principles found in the OpenGitOps Working Group, we demonstrate how to leverage their unique architectural strengths: Argo CD’s application-centric control plane with strong visibility, and Flux CD’s modular, controller-driven system with native Helm lifecycle management. We will showcase real-world hybrid patterns, and explore tools and best practices on how to manage the two tools together in one single platform.\n\nAttendees will leave with a practical framework for deciding when to use a single tool is sufficient, and when combining them unlocks a more resilient, flexible platform.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1223002"
+  },
+  {
+    "id": "kubecon-na-2026-1243089",
+    "title": "The Prompt Layer: What Platform Engineering Has to Own Next",
+    "speakers": [
+      "Atulpriya Sharma"
+    ],
+    "track": "Platform Engineering",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom C",
+    "abstract": "Everyone said AI would reduce developer cognitive load. In some ways, it did. But a different pattern emerged: developers stopped worrying about deployments and started worrying about models, tokens, context windows, and agent behaviour.\n\nThe load did not go away; it just moved.\n\nThe platform has no opinion on any of it. Every developer figures it out alone, every day.\n\nThat is prompt fatigue. And it is a platform problem.\n\nThis session introduces the Prompt Layer: the surface area every IDP needs to own. We'll walk through five components: capability interfaces that abstract model selection, context templates as AI golden paths, token governors as resource limits, agent permission policies using OPA or Kyverno, and AI observability through OpenTelemetry.\n\nThese are not new tools - they are the same abstraction patterns platforms already apply to infrastructure, extended to cover AI decisions.\n\nPlatforms solved the infra floor. The Prompt Layer is the next one.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1243089"
+  },
+  {
+    "id": "kubecon-na-2026-1236746",
+    "title": "Gone in 60 Minutes: Effectively Close the Exploitable Window with Detection as Code",
+    "speakers": [
+      "Ben Hirschberg",
+      "Dr. Constanze Roedig"
+    ],
+    "track": "Security",
+    "level": "Any Level",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom DE",
+    "abstract": "Platform teams have shift-left covered: scanners on every PR, admission control on every deploy, SBOM+VEXs on every image. Then a high-severity CVE drops with \"patch coming soon,\" and all of it goes quiet for days while a known-exploitable workload sits in production. This is the most uncomfortable corner of day-2 on Kubernetes, and most teams have no declarative answer for it.\n\nWe'll show how Kubescape, the CNCF incubating project for Kubernetes security, makes runtime detection a Kubernetes resource: a Rule CRD you review in a PR, version in Git, deploy via Argo or Flux, and roll back like any other manifest. Using the TeamPCP Trivy compromise as an example, we'll cover what the eBPF sensor sees, how to turn an advisory/IoC into a Rule CRD live on stage, how SBOB profiles keep the signal trustworthy, and a CI/CD workflow that gets from \"CVE published\" to \"rule deployed\" in under an hour. For platform engineers, SREs, app developers, and security teams alike.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1236746"
+  },
+  {
+    "id": "kubecon-na-2026-1245768",
+    "title": "From Disk to Defense: Kubernetes Admission Policies the API Can't Touch",
+    "speakers": [
+      "Anish Ramasekar",
+      "Benjamin Elder"
+    ],
+    "track": "Security",
+    "level": "Advanced",
+    "day": "2026-11-10",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom DE",
+    "abstract": "Imagine this: you've locked down your Kubernetes cluster with admission webhooks and ValidatingAdmissionPolicies. Life is great, until someone runs \"kubectl delete validatingwebhookconfiguration\" and your entire policy layer vanishes. That's the catch: the thing enforcing your security rules can be deleted by the very API it's supposed to protect. Your policies don't exist during bootstrap either, and they disappear if etcd goes down.\n\nWhat if you could load those same webhooks and policies from files on disk, active before the API server serves its very first request, and invisible to the REST API? Even better, what if they could protect admission resources themselves, something REST-based policies were never allowed to do?\n\nIn this session, we'll show how Manifest-Based Admission Control (k8s.dev/resources/keps/5793) works, live-demo an attacker deleting critical policies and getting stopped cold, and share patterns for shipping tamper-proof configs across your fleet.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1245768"
+  },
+  {
+    "id": "kubecon-na-2026-1234729",
+    "title": "Governing and Scaling Agents in Heterogeneous Environments",
+    "speakers": [
+      "Antonio Ojea",
+      "Tomás Tormo"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom C",
+    "abstract": "Historically, our ecosystem defaults to a Kubernetes-centric approach, pulling every workload into the cluster. However, autonomous AI agents are not confined to these limits. They are deeply heterogeneous, executing across developer laptops, edge devices, and diverse clouds. Viewing agent networking strictly through Kubernetes creates fragmented, vulnerable silos.\n\nThis talk challenges the community to tackle the problem holistically. We provide a blueprint for infrastructure-agnostic routing, breaking free from K8s-only limits via zero-trust, universal OIDC identity, and declarative policies. Through Project Agent Mesh, we share an open-source implementation proving a decentralized data plane can traverse NAT, operate with zero-config, and scale infinitely via Kademlia networks to secure AI workloads everywhere.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1234729"
+  },
+  {
+    "id": "kubecon-na-2026-1236394",
+    "title": "Quota Isn't Enough: Topology Aware Scheduling on Modern GPU Clusters",
+    "speakers": [
+      "Amy Chen",
+      "JJ Jordan"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom GI",
+    "abstract": "GB200s and GB300s are here!  Fragmentation is widening the gap between “I have GPU quota” and “my job is actually running.” NVLink domains, rack boundaries, and the physical layout of the data center now shape whether a large training job can start, where it lands, and how efficiently it runs. On modern GPU clusters, quota is no longer enough. Topology has become a scheduling requirement. Kueue’s Topology Aware Scheduling (TAS) brings that reality into Kubernetes.\n\nWe will cover three things. First, how TAS works and the configuration choices that matter, including preferred versus required topologies and PodSet slices. Second, how topology-aware placement affects workload performance. Third, the production lessons that do not show up in the happy path: sticky scheduling, quota debugging, fragmentation, and node hot swaps.\n\nAttendees will leave understanding how topology-aware scheduling helps AI teams turn expensive GPU capacity into actual training progress.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1236394"
+  },
+  {
+    "id": "kubecon-na-2026-1247684",
+    "title": "How We Are Enabling Feature Flagging At Scale",
+    "speakers": [
+      "Juan Bernal"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "At CVS Health, we have many engineers working to deliver the latest innovations in health services. In the DevEx organization, we understand that these engineers need feature flagging.\n\nWe researched what was already available within DevEx and found that two types of solutions existed: expensive vendor-driven platforms and home-grown tooling with very limited feature sets.\n\nAfter examining these options, we looked to open source software and discovered OpenFeature, a vendor-agnostic API which would enable us to build a flexible, open source standardized platform to create and manage feature flags.\n\nWe collaborated with the OpenFeature Project, to understand their plans for the future of their Feature Flagging ecosystem and also to understand how we can contribute back to the community and include what we’re building in that future.\n\nWe're excited to share that we are bringing this effort to the open source community. We'd like to share it, and our journey of how we got here, with you.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247684"
+  },
+  {
+    "id": "kubecon-na-2026-1247840",
+    "title": "Ship Faster, Ship Safer: A K8s-Native Canary Pipeline for Critical Cluster Services",
+    "speakers": [
+      "Youmin Han",
+      "Zhuo Zhi"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "At LinkedIn, some of our most critical Kubernetes platform services deploy multiple times a week, including infrastructure components that affect every pod and data-processing job in the cluster. Traditional canary tools based on traffic splitting don’t work well for these services because there is no user-facing L7 traffic to gradually shift.\nIn this talk, we’ll share how we built a Kubernetes-native canary pipeline to safely validate cluster-critical services before production rollout. By combining admission controls, isolated canary environments, GitOps workflows, and automated end-to-end validation, we reduced deployment verification from days of manual testing to under an hour.\nAttendees will learn practical patterns for deploying infrastructure services safely at scale when traditional service-mesh canary approaches are not enough.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247840"
+  },
+  {
+    "id": "kubecon-na-2026-1237600",
+    "title": "Choose Your Own Adventure: The Saga of Serving LLM Inference",
+    "speakers": [
+      "Whitney Lee",
+      "Viktor Farcic"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom B",
+    "abstract": "Our hero has a model to serve, users waiting, and a Kubernetes cluster ready for action. They load the LLM onto a GPU, send a request, and it works! Victory? Not quite. Real traffic brings difficult choices about memory, routing, and performance.\n\nIn their seventh KubeCon “Choose Your Own Adventure” talk, Whitney and Viktor put YOU in charge. Preserve model precision or make room for more conversations? Route to a busy replica with cached context or an idle one without it? Generate tokens normally or speculate ahead?\n\nYour choices become Configuration A. The opposite choices become Configuration B. Both deploy on Kubernetes while Whitney and Viktor explain the inference concepts behind each decision.\n\nThen comes the showdown! Audience members submit prompts and compare answers from both configurations while a live dashboard reveals how the inference workloads perform under load. Which is fastest? Which produces the best answers? And which is most cost-effective?\n\nWill the audience's configuration come out on top?",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1237600"
+  },
+  {
+    "id": "kubecon-na-2026-1247552",
+    "title": "From Pod Creation to First Packet",
+    "speakers": [
+      "Surya Seetharaman"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Beginner",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom B",
+    "abstract": "What actually happens before a Kubernetes Pod can send or receive traffic?\n\nBefore the first packet is ever transmitted, Kubernetes performs a complex series of networking operations behind the scenes. Without understanding these steps and the potential errors along the way, troubleshooting Pod startup networking issues becomes extremely difficult.\n\nThis session follows the networking lifecycle of a Pod from startup to first packet using live demos and packet tracing. We will walk through how Kubernetes creates the Pod sandbox, establishes shared networking through the pause container, and invokes the CNI. We will also dive into namespace setup, veth pair creation, IPAM, routing, and overlay configuration step by step before a Pod becomes reachable.\n\nAttendees will gain a deep understanding of Pod networking at startup which will help them debug common failures including CNI errors, missing routes, overlay issues, and broken Pod connectivity.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247552"
+  },
+  {
+    "id": "kubecon-na-2026-1249844",
+    "title": "Kubernetes The Hard Way - Live",
+    "speakers": [
+      "Lucy Sweet",
+      "Sandeep Kanabar"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom GI",
+    "abstract": "Come behind the scenes of how Kubernetes actually works! In this session, Lucy Sweet (Member of Technical Staff at Anthropic and Node Lifecycle WG co-Lead for the Kubernetes project) and Sandeep Kanabar (Lead Software Engineer at Gen) will take you on a live journey through setting up Kubernetes “The Hard Way”. No tools, no automation.\n\nWe’ll peel back the layers of abstraction to reveal how the core components of Kubernetes interact to orchestrate workloads from small to planet scale. We’ll trace the lifecycle of a Pod from creation through to running container, and explain how often-overlooked components play a critical role in cluster operations.\n\nThrough this live demonstration, attendees will gain a deep understanding of Kubernetes' internal mechanics, empowering them to troubleshoot more effectively, make informed architectural decisions, and unlock the true potential of Kubernetes in production environments.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249844"
+  },
+  {
+    "id": "kubecon-na-2026-1251049",
+    "title": "In-Place Pod Resizing Like I'm 5: Scaling Without Restarts",
+    "speakers": [
+      "Carlos Santana"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Beginner",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom B",
+    "abstract": "Every Kubernetes user has faced this: your Pod needs more CPU or memory, but changing resource requests means restarting it — dropping connections, losing in-memory state, and disrupting your workload. What if Kubernetes could resize Pods in place, like dragging a window corner to make it bigger?\n\nIn-Place Pod Resize lets you change CPU and memory requests and limits on running containers without restarting them. This talk uses the \"explain like I'm 5\" approach to break down how it actually works — from the API changes in Pod spec, to how the kubelet negotiates the resize with the container runtime, to what happens when a resize can't be granted. You'll understand resize policies, status conditions, and how VPA can now autoscale your workloads without the restart tax. We'll share production lessons learned and common gotchas from early adopters. By the end, you'll know exactly when to use this feature and when a restart is still the right call",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1251049"
+  },
+  {
+    "id": "kubecon-na-2026-1251218",
+    "title": "Feeling Lost? A Newcomer's Guide to the Gateway API",
+    "speakers": [
+      "Ian Rudie",
+      "Mike Morris"
+    ],
+    "track": "Cloud Native Novice",
+    "level": "Beginner",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom B",
+    "abstract": "When teams first adopt Kubernetes, one of the earliest decisions they face is how to get application traffic into their cluster. As the ecosystem moves beyond the legacy Ingress API, Gateway API is emerging as the new standard for traffic management, but choosing what to adopt still requires understanding the tradeoffs between implementations.\nIn this session, we introduce Gateway API for cloud native newcomers: why it exists, what problems it solves, where portability is real, and where implementation differences still matter. Drawing on our experience maintaining security, networking, and traffic management systems in the Kubernetes ecosystem, we’ll use examples from Istio, Envoy, and agentgatway to help attendees build a practical framework for evaluation.\nAttendees will leave better prepared to choose a gateway approach for new platforms and migrations.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1251218"
+  },
+  {
+    "id": "kubecon-na-2026-1250750",
+    "title": "Millions of Events, One Right Order: Financial Data Processing at Intuit",
+    "speakers": [
+      "Yashash Lokesh",
+      "Sri Harsha Yayi"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "Intuit processes a massive, continuous stream of financial events across the QuickBooks ecosystem. Every transaction, payment, and update flows through pipelines that write to the databases customers' books depend on. The challenge is twofold: sustaining millions of events with the elasticity and cost-efficiency of a cloud-native system, while never compromising correctness. For financial data, an event processed out of order or counted twice becomes a wrong number in someone's books.\nWe'll walk through the architecture that does both, built on Numaflow, an open-source, Kubernetes-native streaming platform developed at Intuit. We'll cover how we scale horizontally to absorb millions of events, how per-entity ordering and exactly-once semantics keep updates correct under load, how we autoscale (including scale-to-zero) to control cost, and how distributed tracing follows a single event end to end. Attendees leave with patterns for high-throughput, correctness-critical pipelines.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250750"
+  },
+  {
+    "id": "kubecon-na-2026-1229671",
+    "title": "When GPUs Become NUMA Nodes: Challenges Running Kubernetes with Memory-Coherent Hardware",
+    "speakers": [
+      "Kevin Klues",
+      "Balbir Singh"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "When NVIDIA released drivers for the GB200 and GB300, it changed the way GPU memory was exposed to the system. Both GPU and CPU memory now appeared as standard NUMA nodes, unified in a single coherent address space accessible to any application. This model was extremely powerful — but it also broke Kubernetes in ways nobody anticipated: CPU-only pods silently consumed GPU memory, pod memory limits began firing on CUDA allocations, and pods that should have been queued under memory pressure scheduled and crashed instead.\n\nAdapting Kubernetes quickly proved too complex. Instead, a new model called Coherent Driver-based Memory Management (CDMM) was introduced, returning control of GPU memory to the underlying driver and hiding it from the OS. While CDMM closed the most critical gaps in Kubernetes, some lingering issues remain.\n\nIn this talk we'll walk through the initial set of failures, the path to CDMM, and the patches still needed to run Kubernetes reliably on memory-coherent hardware.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1229671"
+  },
+  {
+    "id": "kubecon-na-2026-1243680",
+    "title": "Legacy-Free, Zero-Maintenance Bare Metal Kubernetes Clusters With RISC-V and Immutable Linux",
+    "speakers": [
+      "Felicitas Pojtinger"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "x86 and ARM carry decades of legacy cruft: The IME, firmware blobs, outdated downstream kernels and on ARM an absence of standards that make using mainline Linux on anything other than pricey server hardware almost impossible. RISC-V, a new open ISA, is finally a real alternative in 2026: RVA23 chips are catching up to Intel, AMD, and ARM on performance, virtualization works, and RISC-V vendors mainline SoC support before shipping; even modern Fedora runs out of the box.\n\nThis changes what metal clusters can look like: You own more of your stack, with open boot firmware, open chip designs you could fab yourself, and no license or patent encumbrances. Combining RISC-V with immutable Linux (via `bootc`/`composefs` or `systemd-sysupdate`) and k8s creates near zero-maintenance, legacy-free bare-metal.\n\nThe session includes a live demo where a Milk-V Jupiter 1 (RVA22) and Jupiter 2 (RVA23) Kubernetes cluster migrates a workload with CRIU between the boards, then to a managed RISC-V VPS.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1243680"
+  },
+  {
+    "id": "kubecon-na-2026-1244576",
+    "title": "GPU Observability with eBPF: From Kernel Hooks to Kubernetes Metrics",
+    "speakers": [
+      "Qasim Sarfraz",
+      "Michael Friese"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "GPUs are now a critical resource in Kubernetes clusters, yet observing what is happening on them remains a black box. eBPF, already the go-to technology for system-level observability, can be extended to observe GPU workloads, providing production grade visibility without modifying application code.\n\nIn this talk, we will show you how to get started writing eBPF programs that observe GPU activity. We will walk through how to hook into GPU interfaces, enrich data with Kubernetes context (pods, containers, namespaces), and extract meaningful metrics. Then we’ll cover how to package your eBPF programs as OCI images for easy distribution and deployment across clusters. Finally, we’ll demonstrate how to pipe GPU telemetry into Prometheus and OpenTelemetry so it integrates seamlessly with your existing observability stack. Along the way, we will share guidelines and lessons learned from building GPU observability programs, so you can avoid common pitfalls and hit the ground running.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1244576"
+  },
+  {
+    "id": "kubecon-na-2026-1248422",
+    "title": "CoHDI: Bridging Kubernetes and Disaggregated Memory for Memory-Aware LLM Inference",
+    "speakers": [
+      "Naoki Oguchi",
+      "Hidetsugu Sugiyama"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "LLM inference is becoming memory-centric, where capacity, bandwidth, and data movement dominate performance and cost. Techniques such as continuous batching and prefill/decode disaggregation (e.g., vLLM, LLM-d) improve efficiency within a node, but introduce a new challenge: managing large-scale KV cache across distributed nodes.\nAt the same time, disaggregated memory technologies like CXL enable memory to scale beyond node boundaries, creating an opportunity to extend Kubernetes with memory-aware orchestration while preserving its model.\nWe present CoHDI, a CNCF sandbox project that bridges Kubernetes and disaggregated infrastructure. CoHDI provides abstractions for memory-aware resource management across GPU HBM, DRAM, and CXL, and acts as a mediation layer with runtimes like vLLM to enable coordinated placement of compute and KV cache.\nUsing a vLLM prototype, we demonstrate early results showing the impact of tiered KV placement on concurrency, latency, and GPU utilization.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1248422"
+  },
+  {
+    "id": "kubecon-na-2026-1249601",
+    "title": "Time to Learn New Tricks to Improve Performance on DRA-Managed Devices",
+    "speakers": [
+      "Alexander Kanevskiy",
+      "Sara Qasmi"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "A compute node in modern cluster contains not only CPU and memory, but also GPUs, NICs and other specialized hardware. The overall performance of the workload nowadays comes not by the characteristics of the single device, but from combination of components and deep understanding on how they interact.\n\nThis talk focused on zooming in into hardware topology, explaining what inside physical CPU package is, memory-controller behaviors and locality boundaries, anatomy of I/O hubs and how data flows between components and between devices. This will help to understand deeper about where potential bottlenecks are located for your workload, what are the costs for bandwidth and latencies for each data path and how to potentially mitigate them.\n\nThe talk will cover new features and improvements in DRA, NRI and OCI interfaces that are focused on improving flexibility and manageability for devices, node allocatable resources, standard and derived attributes and low-level tuning parameters.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249601"
+  },
+  {
+    "id": "kubecon-na-2026-1249812",
+    "title": "Fine-Tuning a Vision Language Model Across Hundreds of GPUs on Kubernetes",
+    "speakers": [
+      "Phelipe Fabres",
+      "Daniel Bichuetti"
+    ],
+    "track": "Emerging + Advanced",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "This session presents a production architecture orchestrating 252 GPUs across 21 multi-GPU nodes on Kubernetes to fine-tune a domain-specific Vision Language Model on 50–80 TB of multilingual document data.\n\nWe cover: (1) Topology-aware scheduling — co-locating pods on NVSwitch-connected nodes and gang-scheduling with Volcano for all-or-nothing job placement. (2) High-bandwidth networking — configuring RDMA interfaces as secondary networks via Multus CNI and tuning NCCL for optimal cross-node all-reduce. (3) Data pipeline — streaming tens of terabytes through OCR, enrichment, and tokenization using parallel Kubernetes jobs. (4) Failure recovery — checkpoint-resume strategies, health-check sidecars for silent GPU errors, and automatic restart logic.\n\nAttendees planning GPU-intensive training on Kubernetes will leave with a practical blueprint covering scheduling, networking, storage, and failure handling patterns.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249812"
+  },
+  {
+    "id": "kubecon-na-2026-1243852",
+    "title": "Clueless About The Cost of AI Model Usage? OpenCost+llm-d = first of a kind inference cost tracking",
+    "speakers": [
+      "Alexander Meijer",
+      "Sima Nadler"
+    ],
+    "track": "Observability",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Your GPU bill is rising, your models are serving billions of tokens but what does each token actually cost? GPUs suffer from the same problems as other k8s resources like CPU and RAM: teams size resource requests based on estimates and guesses of anticipated usage, then move on to the next project. Are those GPUs actually used in production? Come learn how OpenCost, a CNCF incubating project, is integrating with llm-d, a CNCF sandbox project, to address these questions and more.\nWe will show how llm-d integrated with OpenCost turns GPU, vLLM, and llm-d metrics into per-model and per-token cost visibility. We will introduce two essential views: reservation-based cost, and usage-based cost. Combining this with idle detection logic enables comparison of self-hosting with SaaS APIs, intelligent routing of LLM workloads, optimization, and fair AI chargeback across shared infrastructure. Attendees will leave with a practical way to bring financial accountability to AI platform decisions.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1243852"
+  },
+  {
+    "id": "kubecon-na-2026-1249846",
+    "title": "OTel Blueprints: Prescriptive Patterns for Enterprise Observability",
+    "speakers": [
+      "Dan Gomez Blanco",
+      "Lukasz Ciukaj"
+    ],
+    "track": "Observability",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "As OpenTelemetry adoption scales and the project extends its breadth, end users find themselves navigating a large configuration surface: SDKs, Collector deployments, data pipelines, instrumentation libraries, semantic conventions... They can all create accidental complexity when not considered as part of a cohesive strategy, resulting in disjointed telemetry and a lack of context, the opposite of OTel's vision.\n\nIn this session, we'll introduce OTel Blueprints, a community-driven initiative providing prescriptive guidance for deploying OTel across its many components, grounded in real-world reference implementations. We will walk through newly published blueprints tailored for common enterprise architectures, exploring actionable design patterns for Kubernetes observability, non-Kubernetes infrastructure, and building centralized telemetry platforms that can scale.\n\nAttendees will learn how to apply these blueprints to build a scalable, consolidated observability strategy.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1249846"
+  },
+  {
+    "id": "kubecon-na-2026-1238718",
+    "title": "Following the Evidence with HolmesGPT: Troubleshooting Kubernetes Apps and Underlying Infrastructure",
+    "speakers": [
+      "David vonThenen",
+      "Yash Sharma"
+    ],
+    "track": "Operations + Performance",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "Kubernetes incidents rarely stay politely inside the cluster. A slow API may look like an application issue, only to trace back to noisy neighbors, failing storage, cloud limits, or some other infrastructure gremlin that waited until 2am. HolmesGPT, a CNCF Sandbox open-source SRE agent, expands AI-assisted troubleshooting beyond cluster scanning by investigating production problems across Kubernetes, cloud services, databases, and the infrastructure beneath them.\n\nIn this demo-driven session, we will use HolmesGPT to investigate failure scenarios that connect application behavior to underlying compute, storage, and cloud-provider signals. We will show how an AI-powered SRE agent can gather context, reason across multiple operational layers, and help teams move from \"the pod is broken\" to \"here is the likely root cause and why.\" Along the way, we will contrast this broader incident-investigation model with CNCF diagnostic approaches, such as k8sgpt, and highlight where each fits.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1238718"
+  },
+  {
+    "id": "kubecon-na-2026-1247283",
+    "title": "Green Dashboards, Broken Clusters: Taming Stale Watches in Kubernetes Operators",
+    "speakers": [
+      "Michael Aspinwall",
+      "Alvaro Aleman"
+    ],
+    "track": "Operations + Performance",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "We've seen it before: autoscalers not reacting to traffic spikes for hours, taking down the service. Or a DaemonSet silently spawning duplicate pods on a node, wasting resources in an already strained system. Meanwhile, alerts and dashboards show nothing amiss? There's no bug in your operator's logic, it's a symptom of a deeper problem. Can you wait hours for your system to react?\n\nIn a watch-based, eventually consistent environment, staleness is a mirage in your control plane. Your operator believes it is reacting to the present, but is actually trapped in the past. How do we defend our infrastructure against it?\n\nThe Kubernetes community is finally tackling this. This session demystifies watch staleness, exposing gaps in how we design reconciliation loops. We introduce capabilities in Kubernetes v1.36+, including comparable resource versions and staleness mitigation. You’ll leave able to build operators that degrade gracefully, detect staleness, and keep your clusters reliable.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247283"
+  },
+  {
+    "id": "kubecon-na-2026-1248118",
+    "title": "All Things DRA in One Place: DRA Example Driver Deep Dive",
+    "speakers": [
+      "Jon Huhn"
+    ],
+    "track": "Operations + Performance",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "Since Dynamic Resource Allocation (DRA) graduated to GA in Kubernetes 1.34, the DRA APIs have seen a number of enhancements to expand the types of hardware that can be expressed by DRA and how they can be requested by workloads. While these features are all described in the Kubernetes documentation, working examples are crucial for users to understand them and experiment further.\n\nThe Kubernetes-sponsored, vendor-neutral DRA Example Driver aims to implement a wide variety of DRA features compatible with any cluster to serve both device vendors implementing features in their own drivers and DRA users looking to request DRA resources for their workloads.\n\nIn this talk, the maintainers of the DRA Example Driver will demonstrate how both DRA driver authors and DRA users can learn about implementing and utilizing the latest DRA features with tested examples showing common use cases and best practices.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1248118"
+  },
+  {
+    "id": "kubecon-na-2026-1229970",
+    "title": "No RAG, No Regrets: Letting an LLM Drive 30 EKS Clusters in Production",
+    "speakers": [
+      "Trevor Linton"
+    ],
+    "track": "Platform Engineering",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 1 | Grand Ballroom GI",
+    "abstract": "We gave a bedrock assistant the keys to 30 EKS clusters and the AWS and GitLab control planes behind them. Read only by default, write capable with reviews. We did it without a vector store, without RAG, and without a 200K token prompt.\n\nThis talk is the engineering behind that claim. We will walk through some of the techniques behind it. A typed tool catalog the model plans against, server side projection that turns 40 MB of DescribeInstances into 800 bytes of data, an iterative plan loop with a hard token budget, and a consent layer that makes kubectl apply and git push safe to expose to a language model.\n\nEngineers will leave with a concrete pattern for letting an LLM operate a real fleet. One that scales with your control plane instead of your embeddings bill, and that fails closed when it matters. Example source code is open source so everyone can start their own journey.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1229970"
+  },
+  {
+    "id": "kubecon-na-2026-1238395",
+    "title": "From Zero to GPU Cloud: 12 months building Mistral Compute on top of Open Source",
+    "speakers": [
+      "Antoine Roy",
+      "Léonard Suslian"
+    ],
+    "track": "Platform Engineering",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "In July 2025, Mistral started building a sovereign AI cloud from scratch. Five months later, our first GB200/GB300 cluster was in production. We did it by standing on the shoulders of CNCF and adjacent projects: ClusterAPI, Metal3, Kamaji, Sveltos, and Slinky (Slurm-on-Kubernetes), assembled together with our own operators. This talk is a one-year production retrospective. We will walk through the architecture (management cluster, multi-tenant control planes, bare-metal provisioning) and all the abstraction we built on top of it, then dive into the surprises: scaling etcd past 4,000 nodes, assisting in the arm64 support on Metal3, fleet monitoring, network management, and the operational reality of BMCs, Redfish, and NVL72 racks when you come from a \"cloud-native\" background. Attendees will leave with a concrete reference architecture for KaaS on bare metal, and an honest list of the potholes between a kind cluster and a 4,600 node GPU fleet.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1238395"
+  },
+  {
+    "id": "kubecon-na-2026-1203350",
+    "title": "Why Your Monitoring Stack is a Security Risk",
+    "speakers": [
+      "Vinayak Goyal",
+      "Graham Helton"
+    ],
+    "track": "Security",
+    "level": "Advanced",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom DE",
+    "abstract": "For years, the Kubernetes community has lived with a \"necessary evil\": granting monitoring agents and health checkers the nodes/proxy permission. While intended for simple metrics scraping, this permission is effectively a node-level superuser capability. Recent security research in early 2026 demonstrated that even a simple GET request on this subresource could be exploited via WebSockets to achieve unlogged Remote Code Execution (RCE) in any pod.\n\nThe wait for a fix is over. With the graduation of Fine-Grained Kubelet API Authorization to General Availability in v1.36, Kubernetes finally provides a robust, least-privilege alternative.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1203350"
+  },
+  {
+    "id": "kubecon-na-2026-1247159",
+    "title": "Welcome to the Vulnpocalypse!",
+    "speakers": [
+      "Liz Rice",
+      "Adrian Mouat",
+      "Hannah Foxwell",
+      "Andrew Martin"
+    ],
+    "track": "Security",
+    "level": "Any Level",
+    "day": "2026-11-11",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom DE",
+    "abstract": "We've shifted left, generated SBOMs, and signed artifacts, but we’re drowning in more vulnerability data than ever before. AI is increasing the speed and sophistication of attacks, compounding the crisis of CVE fatigue while teams struggle to patch \"critical\" vulnerabilities not reachable at runtime, and navigate from \"compliance theater\" to actual risk reduction.\n\nIs the panic induced by increasingly capable models justified? Does this fundamentally change the security landscape, or is it just marketing hype? And is the current \"scan and patch\" model broken? Welcome to the Vulnpocalypse!\n\nThis panel debates the next phase of cloud native and open source security. We‘ll explore the transition from static analysis to runtime insight, the role of reachability analysis, and the latest open source tooling to help build a resilient security posture.\n\nAttendees will leave with insight & ideas for cutting through the CVE noise, and levelling the playing field against AI-accelerated attacks.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247159"
+  },
+  {
+    "id": "kubecon-na-2026-1228453",
+    "title": "Anthropic’s Kubernetes Scheduler for Frontier AI: What Worked, What Broke",
+    "speakers": [
+      "Decheng Dai"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "A TPU on the wrong torus coordinate is worthless. So is one GPU placed outside its NVLink island. For frontier training, where a pod lands matters as much as whether it lands at all. And they have to land as a gang: every pod in the job on contiguous hardware, or none at all. The default scheduler scores pods one at a time and has no vocabulary for \"all 256 of these, on contiguous hardware, or none.\"\n\nThis is Anthropic's account of building the scheduler that does and how we kept it fast as clusters grew toward GKE's 65K node limit. Part one is design: modeling interconnect topology as first-class scheduling domains, gang admission with graceful eviction, capacity allocation, and defragmentation. Part two is the performance story - the optimizations that brought average processing time to under 3ms per job: gating expensive affinity checks behind cheap predicates, efficient resource accounting, and caching infeasibility verdicts.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1228453"
+  },
+  {
+    "id": "kubecon-na-2026-1237843",
+    "title": "From Black-Box to Auditable AI-Grid: A Deterministic Governance Layer with Hybrid Cloud",
+    "speakers": [
+      "Fatih E. Nar",
+      "Andrew Hendrickson"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Beginner",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom H",
+    "abstract": "AI is moving into the operating core of communication networks: control loops, spectrum allocation, network slicing with QoS, and customer-issue automation, under regulatory watch on life-critical systems. Opaque models and unreproducible outputs do not meet regulatory legal bar. This session presents a deterministic governance pattern for AI-RAN, drawn from work with the FCC. We separate AI-for-Networks (internal optimization) from Networks-for-AI (multi-tenant hosting), and show how one hybrid-cloud platform carries both. The core is a five-stage pipeline: intent, retrieval, rule-bounded reasoning, synthesis, citation-validated output. Every output is reproducible and audit-traceable.\nWe map it onto a six-layer governance model using OPA or Kyverno for policy, OpenTelemetry and Kepler for energy telemetry, and GitOps for model, rule, and corpus lifecycle. We close with a maturity model and a measurement checklist that separates real AI-RAN energy savings from selective accounting.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1237843"
+  },
+  {
+    "id": "kubecon-na-2026-1238002",
+    "title": "Agents Fail. Workflows Recover. Durable Agent Orchestration with Cadence",
+    "speakers": [
+      "Diana Zawadzki",
+      "Shijie Sheng"
+    ],
+    "track": "AI Inference + Agentic",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "Uber’s AI/ML Platform Team is relying on Cadence as part of their new Agent Executor Service, facilitating durable agentic workflow orchestration at scale.\nLarge Language Models (LLMs) have evolved from simple text prediction to autonomous agents capable of orchestrating complex tools. However, a critical gap exists in the current ecosystem: durable orchestration. Most agent SDKs are stateless by design, making them fragile in production environments where network partitions, long-running tasks, and system failures are inevitable.\n\nIn this session, we explore a cloud-native architectural pattern to solve the “stateless agent” problem by using Cadence as a robust durability layer for agent orchestration. We will move beyond the “hello world” agent and demonstrate how to build production-ready systems that require:\n\n- Fault tolerance: Resuming complex reasoning chains after a process crash.\n- Auditability: Maintaining a permanent, replayable record of agent decisions and tool executions.\n- Long-running state: Managing agents that operate over days or weeks rather than seconds.\n\nWe will provide a technical deep dive into integrating Cadence with popular frameworks like OpenAI, Google ADK, and Claude. We will also show how Cadence fits into the broader AI ecosystem, including Cadence AI Skills and AI-native coding tools like Claude Code, Cursor, Codex, and Hermes Agent, so developers can write their first Cadence-aware agent workflow in minutes.\n\nAttendees will walk away with a blueprint for durable agent orchestration: implementing automatic checkpointing and retries, recovering from failures instead of restarting, and ensuring their AI agents are as reliable as their microservices.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1238002"
+  },
+  {
+    "id": "kubecon-na-2026-1245273",
+    "title": "From Laptop to Cluster: The Agentic AI Inner Loop on Kubernetes",
+    "speakers": [
+      "Kevin Dubois"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "Building agentic AI systems means juggling API keys for LLMs and MCP-connected tools, plus the burden of configuring those services correctly. Add expensive inference calls and highly customized dev setups, and the inner loop quickly becomes inner hell.\n\nThis session will demonstrate a streamlined inner-loop experience for agentic AI. We will develop, test, and iterate on multi-agent systems on our laptop, then deploy to Kubernetes with zero code changes. We'll show how to auto-provision local LLM inference, build agents with typed tool contracts, compose workflows, and test interactions with hot reload. We'll also show how MCP and/or A2A enable portable integration and separation of concerns, and how teams can switch to production-grade inference through configuration alone, with Kubernetes-native health checks, observability, and deployment patterns.\n\nYou'll leave understanding how to build and ship AI systems with open-source tooling and cloud native patterns you already know.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1245273"
+  },
+  {
+    "id": "kubecon-na-2026-1247100",
+    "title": "Splitting the Monolith at Cloudera - Building Fault-Tolerant Workflows with Cadence",
+    "speakers": [
+      "Soma Koltai",
+      "Ender Demirkaya"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "As Cloudera Data Warehouse (CDW) workloads were adopted at scale in public and private cloud environments, our monolithic, stateful architecture hit a wall. Managing 40-minute provisioning cycles with a single-server executor meant that infrastructure instability often resulted in stalled workloads and inconsistent states. This session provides a technical deep dive into our migration to Cadence. We’ll discuss the development of the Lease API for distributed locking and how we utilized an intermediary Async Executor to transition to Cadence’s workflow/activity model without a complete rewrite.\nThe scope of this talk is narrowed to the practical implementation of fault tolerance: how we refactored long-running tasks to be fault tolerant with the help of Cadence. We will present a real-world case study where a severe memory leak and subsequent node rescheduling - which would have previously caused service disruptions - resulted in zero downtime for user workloads.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247100"
+  },
+  {
+    "id": "kubecon-na-2026-1247392",
+    "title": "Fake It Until You Make It: Mocking NVML to Test the Kubernetes GPU Stack on Zero GPUs",
+    "speakers": [
+      "Eduardo Arango Gutierrez",
+      "John Belamaric"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Beginner",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "GPU hardware is scarce, expensive, and hostile to fast CI/CD. Yet every component in the NVIDIA Kubernetes GPU stack, device plugins, DRA drivers, GPU Operator, depends on NVML, the user-space C library that talks to the driver. What if you could swap it for a drop-in mock that makes nvidia-smi, and any Go binary linked against go-nvml, believe it runs on a DGX A100, on your laptop, in a kind cluster, or in a GitHub Actions runner with zero GPUs?\nThis talk introduces nvml-mock, an open-source, YAML-configurable mock of libnvidia-ml.so implementing 89 NVML entry points via an auto-generated CGo bridge. We walk the architecture, C shim, a singleton Go engine with handle tables and reference-counted Init/Shutdown, and YAML device profiles for A100, GB200, and custom topologies, then show the same production binary tested end-to-end against simulated multi-GPU nodes. Finally, we show how to build your own GPU-aware CI pipelines without provisioning a single GPU.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247392"
+  },
+  {
+    "id": "kubecon-na-2026-1250076",
+    "title": "Hope Is Not a Rollout Strategy: Balancing (AI) Quality, Cost, and Risk Through Experimentation",
+    "speakers": [
+      "Todd Baert"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "A team ships an AI-powered support feature on a Friday. By Monday, token spend is eight times the forecast, a quality regression is annoying a swath of customers, a prompt injection slipped past the output guardrails and the comms team is dealing with a viral screenshot of the response.\n\nShipping AI features responsibly is an experimentation problem. The cloud native community already has the primitives (flags, cohorts, telemetry, experiments, kill-switches), and AI workloads need them more than a CRUD service. Non-determinism means the same input can produce different outputs, so a green pre-prod eval is evidence of nothing; real traffic, real prompts, and real adversaries are the only meaningful test data. When a one-line prompt change can 10x a tenant's bill, progressive rollout and kill-switches cease to be optional.\n\nTodd covers the three axes (quality, cost, risk) and a reference loop using OpenFeature, flagd, and OpenTelemetry attendees can build next sprint.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250076"
+  },
+  {
+    "id": "kubecon-na-2026-1251069",
+    "title": "From Vibe to Live: Building for the Real World",
+    "speakers": [
+      "Trey Caliva",
+      "David Biel"
+    ],
+    "track": "Application Development + Delivery",
+    "level": "Beginner",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom GI",
+    "abstract": "A dental cabinet manufacturer in Texas now runs their corporate website and systems on a globally distributed CDN, autoscaling serverless compute, and a managed NoSQL datastore. They have no engineers. They vibe-coded it.\n\nThis story is only possible because of fifteen years of cloud-native work. Managed platforms are opinionated wrappers around primitives the CNCF community made boring: container orchestration, serverless compute, federated identity, managed observability. Vibe coding is the cloud-native community's success story, even if most of its users will never know we exist.\n\nIn this talk, we will share what it took to get from prompt to production, what the cloud-native foundation gave us, and where it left edges that still required human judgment. What is \"production-ready\" when the platform team is an LLM and how should cloud-native builders think about the wave of AI-assisted, non-engineer-built apps now landing on our infrastructure?",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1251069"
+  },
+  {
+    "id": "kubecon-na-2026-1242417",
+    "title": "Debugging the Invisible: Standardizing Kubernetes Networking Expertise",
+    "speakers": [
+      "Faseela Kundattil",
+      "Marino Wijay",
+      "James Spurin",
+      "Chad M. Crowell",
+      "Christophe Sauthier"
+    ],
+    "track": "Connectivity",
+    "level": "Beginner",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom C",
+    "abstract": "Kubernetes networking simplifies distributed systems, yet many engineers still struggle to understand how abstractions map to real networking behavior, which raises the question: is Kubernetes networking too complex, or poorly taught? As the ecosystem matures, community-driven efforts like the Certified Kubernetes Networking Engineer(CKNE) exam are emerging to help standardize the real-world Kubernetes networking skills.\n\nThis panel brings together CKNE SMEs, networking specialists and educators to challenge how Kubernetes networking is understood, taught, and operationalized today. We’ll focus on where mental models break down in practice, why engineers struggle to reason across services, DNS, CNIs and Linux networking stack and what foundational networking knowledge Kubernetes practitioners actually need.\n\nJoin us as we explore the invisible layers powering Kubernetes and how the community can build a more practical and standardized mental model for Kubernetes networking expertise.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1242417"
+  },
+  {
+    "id": "kubecon-na-2026-1244000",
+    "title": "Here be DRAgons: Bringing native zero-copy networking to Pods with Cilium and netkit",
+    "speakers": [
+      "Daniel Borkmann",
+      "Aaron Campbell"
+    ],
+    "track": "Connectivity",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 EF",
+    "abstract": "Kubernetes Pods have traditionally been blocked from using hardware-level networking acceleration due to namespace isolation. Cilium is changing that by bringing native Dynamic Resource Allocation (DRA) support to manage hardware resources for Pods.\n\nThis talk unveils how we built two new DRA drivers for Cilium: an SR-IOV flavor as well as a new hardware queue leasing mechanism recently merged into the Linux kernel’s networking stack and the DRAgons we faced along the way. We’ll dive deep into how queue leasing proxies real physical NIC queues directly to virtual netdevs, how we integrated it into netkit, Cilium’s eBPF datapath, and the tradeoffs between the two flavors.\n\nThis architecture brings native io_uring TCP zero-copy into Pods for the first time, enabling high-speed memory-mapped networking. Join us to see how these two new Cilium DRA drivers can be used and how we enable 100G+ single-stream throughput while preserving the operational model cloud native platforms expect today.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1244000"
+  },
+  {
+    "id": "kubecon-na-2026-1247970",
+    "title": "Managing Network Security in Multi-Tenant Environments with Istio and Cilium",
+    "speakers": [
+      "Michael Bolot",
+      "Zaira Shaikh"
+    ],
+    "track": "Connectivity",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "Managing connections in a Kubernetes cluster can be tricky. This can get even more difficult when you are trying to manage connections for a fleet of Kubernetes clusters, each with users that require strict network isolation at the application level.\n\nIn this talk, you will hear a case study in how GEICO Tech solved the problem of restricting network connections at scale by using Cilium Network Policies to form a broad network boundary and using Istio Authorization policies to provide zero trust networking at the application layer. It goes into detail on the issues that we encountered supporting many distinct workloads with unique networking needs and how we managed the tradeoffs between user flexibility and system performance, all while maintaining the overall security of the system.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247970"
+  },
+  {
+    "id": "kubecon-na-2026-1248779",
+    "title": "From Load Balancer Sprawl to Multicluster Service Discovery",
+    "speakers": [
+      "Vincent Cheng",
+      "Gaurav Nanda"
+    ],
+    "track": "Connectivity",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 2 | Salt Lake Ballroom C",
+    "abstract": "As Kubernetes platforms scale to multiple clusters, teams often solve cross-cluster connectivity by adding cloud load balancers between clusters. This approach works initially but leads to various issues, including, but not limited to, load balancer sprawl, cloud quota pressure, and connection-level load balancing.\n\nThis talk presents an alternative: a lightweight xDS-based service discovery control plane that extends single-cluster endpoint discovery to span multiple clusters. Rather than requiring a full service mesh or relying on connection-level load balancing through cloud load balancers, the system distributes pod-level endpoint information across clusters through peer-to-peer xDS subscriptions. This architecture preserves the same routing capabilities and semantics available for single-cluster traffic, and allows systems to consistently apply features like request-level load balancing and zone affinity.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1248779"
+  },
+  {
+    "id": "kubecon-na-2026-1247294",
+    "title": "Fencing Tokens and the Three-Party Contract: What Most Distributed Locks Get Wrong",
+    "speakers": [
+      "Benjamin Wang"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Distributed coordination — locks, leader election, barriers — sounds solved. But “usually works” and “correct by design” are very different things.\n\nThis talk shares lessons from building distributed coordination primitives on etcd. A common failure mode: a process acquires a lock, gets paused by GC or a network partition, then resumes still believing it owns the resource. Without fencing, zombie clients can corrupt shared state.\n\nThe solution is a three-party contract: the lock service issues monotonically increasing fencing tokens, the client forwards them, and the resource rejects stale operations. Together they prevent zombie writes by design.\n\nWe then zoom out from locks to coordination as a broader discipline. An extensible provider model — etcd today, ZooKeeper and Redis later — lets one abstraction support different stacks.\n\nLive demos cover zombie scenarios over HTTP and gRPC. Attendees leave with a framework for reasoning about correctness in distributed coordination systems.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247294"
+  },
+  {
+    "id": "kubecon-na-2026-1250351",
+    "title": "Running Stateful Analytics on Kubernetes: Lessons from Building a Distributed DuckDB Platform",
+    "speakers": [
+      "Seth McCombs",
+      "Karim Alibhai"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | 151",
+    "abstract": "DuckDB is one of the fastest analytical databases available today, but wasn't designed to run as a multi-tenant, cloud native service.\n\nGreybeam has been running DuckDB in production since before v1.0, serving millions of queries. AcuityMD uses DuckDB to power their medtech platform used by over 500 medical device companies. There are tradeoffs when choosing an embedded single-node engine vs. a distributed database, and this talk will cover the challenges of building a DuckDB-based data platform on Kubernetes. Hear about the operational realities of running a stateful engine, such as NVMe provisioning and running performant data systems in environments without swap memory. We’ll then touch on what’s next, such as object-store-native architectures.\n\nAttendees will leave with practical lessons for running stateful workloads on Kubernetes, the tradeoffs of an embedded database, and patterns for building scalable data systems on top of modern open source infrastructure.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250351"
+  },
+  {
+    "id": "kubecon-na-2026-1251249",
+    "title": "Spark on Kubernetes: The Gap Between “It Works” and “It Works Well”",
+    "speakers": [
+      "Damon Cortesi"
+    ],
+    "track": "Data Processing + Storage",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom ACE",
+    "abstract": "Over the past 2 years, Airbnb has been on a journey to migrate several million Spark jobs a week from Hadoop to Kubernetes.\n\nOperating this platform at scale has required continuous improvement, from tracking down Spark bugs that leak thousands of configmaps to backporting CRI-O patches on a surprisingly regular basis.\n\nThe workload patterns of Spark push the boundaries of every involved system including node health, observability, networking, and all the way down to individual disk performance.\n\nIn this talk, we'll step through each layer of the stack — what broke, what we patched, and the custom tooling we built when off-the-shelf solutions couldn't keep up.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1251249"
+  },
+  {
+    "id": "kubecon-na-2026-1230488",
+    "title": "Beyond Dashboards: A Semantic Layer for AI-Driven Observability in Kubernetes",
+    "speakers": [
+      "Pronnoy Goswami"
+    ],
+    "track": "Observability",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom BDF",
+    "abstract": "Kubernetes environments generate enormous telemetry volumes, yet most AI observability integrations treat logs and traces as raw text — producing hallucination-prone, unreliable incident responses.\n\nThis session presents a production-validated four-layer architecture built on CNCF-native tooling: OpenTelemetry for signal collection, a Model Context Protocol (MCP) server as a typed semantic query layer, and AI-driven agents for proactive root-cause analysis. The speaker shares production lessons from running this architecture at petabyte scale across multi-region Kubernetes deployments at Workday.\n\nAttendees will understand why raw OTel pipelines fail with LLMs, how an MCP server exposes telemetry as structured, queryable context, and the cardinality and latency tradeoffs encountered in production. The session closes with a code walkthrough of a lightweight MCP server integrating with Prometheus or Mimir, and practical criteria for when agentic observability genuinely reduces MTTR.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1230488"
+  },
+  {
+    "id": "kubecon-na-2026-1246551",
+    "title": "OpenFeature as a Control Plane for OpenTelemetry",
+    "speakers": [
+      "Simon Schrottner",
+      "Juliano Costa"
+    ],
+    "track": "Observability",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "Most observability configurations are static. We decide upfront which spans to emit, which attributes to record, and how much telemetry is worth collecting. But production systems are not static. When everything is healthy, detailed telemetry creates unnecessary cost and noise. When incidents happen, the telemetry we need often is not being collected.\nWhat if telemetry verbosity could adapt automatically?\nIn this talk, we combine OpenTelemetry and OpenFeature to dynamically control instrumentation at runtime. Services can switch between lightweight traces and deep diagnostic telemetry without redeployments or restarts. Feature flags drive observability decisions based on runtime conditions, enabling richer spans, additional attributes, and higher-cardinality signals only when they are needed.\nWe will demonstrate how OpenTelemetry semantic conventions can act as a standardized control surface, enabling adaptive and vendor-neutral observability across services and environments.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1246551"
+  },
+  {
+    "id": "kubecon-na-2026-1247103",
+    "title": "Autoscaling at Scale with KEDA",
+    "speakers": [
+      "Ali Aqel"
+    ],
+    "track": "Operations + Performance",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 1 | Grand Ballroom GI",
+    "abstract": "KEDA has supercharged Horizontal Pod Autoscaling with its support for 60+ scalers and ability to scale workloads to and from 0. With KEDA, Stripe runs one of the largest autoscaled fleets in the world. We have seen the great, the good, and the ugly.\n\nIn this session, we go beyond how to autoscale with KEDA and discuss how we integrated and operate KEDA at Stripe while maintaining our 99.999+% SLA.\n\nAttendees will deep dive into:\nObservability and Operability - Identifying and resolving issues within your autoscaling infrastructure.\nScalability and Abstraction - Scaling reliably from 100 to 2,000 ScaledObjects per cluster, and 10,000+ globally, with a delightful configuration experience.\nSafety - Adding guardrails during CI/CD to safeguard against service degradation.\n\nWhether you run a small organization or support a large engineering team, you will leave this talk with learnings that will empower you to safely adopt autoscaling without sacrificing your reliability commitments.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247103"
+  },
+  {
+    "id": "kubecon-na-2026-1246170",
+    "title": "From Maintenance Chaos to Steady Uptime: GitOps-Driven Scheduling across GPU Fleets",
+    "speakers": [
+      "Natalie Bandel",
+      "Soumya Balakrishnan"
+    ],
+    "track": "Platform Engineering",
+    "level": "Any Level",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "At NVIDIA, we run hundreds of GPU clusters, and ever so often, they need maintenance: node drains, driver upgrades, firmware flashes, or Kubernetes upgrades. At fleet scale, the hard part is coordinating and keeping track of multiple upgrades in parallel without disrupting workloads or wasting GPU capacity.\n\nWe’ll present a GitOps-based system we’ve built at NVIDIA to automate and coordinate this. Each cluster’s desired state for every piece of software lives in Git. Each cluster reports drift, and a central scheduler decides what to upgrade and when — factoring in workload sensitivity, GPU usage, and business-critical windows.\n\nYou’ll leave knowing how to prioritize competing maintenance work, how to fold GPU usage and tenant sensitivity into scheduling decisions, and how this work connects to in-flight upstream efforts.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1246170"
+  },
+  {
+    "id": "kubecon-na-2026-1250736",
+    "title": "From Citadel to Contract: Migrating a Monolith with 500+ Services to Kubernetes",
+    "speakers": [
+      "Holly Mooneyham"
+    ],
+    "track": "Platform Engineering",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "Many cloud native stories begin with greenfield systems. This one begins with a 20-year-old production monolith: 500+ tightly-coupled services, 1,000+ database shards, and a fleet of 5,000+ statically provisioned servers.\n\nThis case study follows a migration at Cisco Meraki from a citadel-and-outposts architecture to an API-first Kubernetes platform. The team treated Kubernetes not as an infrastructure swap, but as a new platform contract between infrastructure teams and application teams. That shift broke assumptions that had become core to application design, forcing hard decisions about what the platform should abstract away and what should be solved in partnership with application teams.\n\nAttendees will leave with practical patterns for decomposing brownfield architecture, defining platform boundaries and the application-owner-facing interfaces that enforce them, and managing the human side of retiring assumptions that have been reliable for decades.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1250736"
+  },
+  {
+    "id": "kubecon-na-2026-1244941",
+    "title": "PKI Done Easy with Pod Certificates and Cluster Trust Bundles",
+    "speakers": [
+      "Taahir Ahmed",
+      "Stanislav Láznička"
+    ],
+    "track": "Security",
+    "level": "Advanced",
+    "day": "2026-11-12",
+    "room": "Hyatt Regency | Level 4 | Regency Ballroom CD",
+    "abstract": "In Kubernetes, managing trust distribution and certificates for workloads remains challenging. Trust anchors are often replicated via ConfigMaps, while sensitive material ends up in Secrets, creating fragile setups that are difficult to operate securely.\n\nThis talk focuses on two emerging features that address this problem: PodCertificates and ClusterTrustBundles.\n\nWe will walk through how certificates are issued, rotated, and projected into pods, and how workloads obtain short-lived, identity-bound credentials with PodCertificates. We’ll then cover how ClusterTrustBundles distribute trust anchors within the cluster and how they differ from manually managed CA bundles. Using concrete examples, we will demonstrate implementing a certificate signer and integrating it into a demo application for an end-to-end authentication flow.\n\nAttendees will gain an API-level understanding of these primitives and how to use them to build practical trust inside Kubernetes clusters.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1244941"
+  },
+  {
+    "id": "kubecon-na-2026-1246342",
+    "title": "Securing the Agentic Future: Distributing LLM Weights and Sandboxed AI Agents via Harbor",
+    "speakers": [
+      "Chenyu Zhang",
+      "Yan Wang"
+    ],
+    "track": "Security",
+    "level": "Beginner",
+    "day": "2026-11-12",
+    "room": "Salt Palace | Level 2 | 255 BC",
+    "abstract": "Autonomous AI Agents running untrusted, dynamic code on Kubernetes require strict sandboxing (e.g., Kata, gVisor) to guarantee tenant isolation. However, platform engineers face two massive production hurdles: securely verifying unvetted Agent images and distributing multi-gigabyte LLM weights to isolated sandboxes under tight latency constraints.\nThis session explores how Harbor (CNCF Graduated) scales beyond standard containers to become a secure distribution hub for AI infrastructure. We will dive deep into:\n\n1.\tModels as OCI Artifacts: Storing and versioning massive LLM weights alongside Agent images natively in Harbor.\n2.\tAI Supply Chain Trust: Leveraging Harbor’s scanning and cryptographic signing (Cosign/Notation) to ensure only verified models execute within sandboxes.\n3.\tLatency Optimization: Utilizing proxy caching and lazy-loading to slash sandbox startup times.\nAttendees will walk away with a production-ready blueprint for a secure, high-performance AI platform on K8s.",
+    "sourceUrl": "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1246342"
+  },
+  {
     "id": "fictional-k8s-101",
     "title": "Kubernetes for Application Developers",
-    "speakers": ["Demo Speaker A"],
+    "speakers": [
+      "Demo Speaker A"
+    ],
     "track": "Application Development",
     "level": "Beginner",
     "day": "2026-11-10",

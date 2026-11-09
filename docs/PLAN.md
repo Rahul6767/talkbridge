@@ -22,8 +22,8 @@ Each engineer runs their own Claude Code session. Tell Claude “I am Hemanth (A
 
 | Owner | Files |
 | --- | --- |
-| Hemanth (A) | `src/app/api/search`, `facets`, `recommend`, `prepare` routes; `src/app/page.tsx`; `scripts/seed.mjs`; `data/sessions.json` |
-| Rahul (B) | `src/app/api/health`; `src/instrumentation.ts`; `src/instrumentation.node.ts`; `src/app/rum.tsx`; `src/app/layout.tsx`; `next.config.ts`; `package.json` / `package-lock.json`; `.github/`; `.gitar/`; `Dockerfile`; `.dockerignore`; `k8s/` |
+| Hemanth (A) | `src/app/api/search`, `facets`, `recommend`, `prepare` routes; `src/app/page.tsx` |
+| Rahul (B) | `scripts/seed.mjs`; `data/sessions.json` (Phase 4 / A0–A2 moved to Rahul at 1:45 so Hemanth could start Phase 6); `src/app/api/health`; `src/instrumentation.ts`; `src/instrumentation.node.ts`; `src/app/rum.tsx`; `src/app/layout.tsx`; `next.config.ts`; `package.json` / `package-lock.json`; `.github/`; `.gitar/`; `Dockerfile`; `.dockerignore`; `k8s/` |
 | Shared contract (both approve changes) | `src/lib/types.ts`, `options.ts`, `telemetry.ts`, `rate-limit.ts`, `elastic.ts`; `.env.example`; `CLAUDE.md`; this file |
 | Both (Rahul drafts, Hemanth fills) | `README.md` |
 
