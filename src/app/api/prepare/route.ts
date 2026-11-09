@@ -60,10 +60,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) throw new Error("Missing OPENAI_API_KEY.");
     const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
-    const openai = new OpenAI({ apiKey, timeout: 30_000, maxRetries: 1 });
 
     const guide = await observe(
       "talkbridge.guide.generate",
@@ -82,6 +79,11 @@ export async function POST(request: Request) {
           span.setAttribute("talkbridge.demo.simulated", true);
           throw new Error("Simulated guide-generation failure.");
         }
+
+        // Inside observe() so a missing key is logged and traced, not a silent 500.
+        const apiKey = process.env.OPENAI_API_KEY;
+        if (!apiKey) throw new Error("Missing OPENAI_API_KEY.");
+        const openai = new OpenAI({ apiKey, timeout: 30_000, maxRetries: 1 });
 
         const generated = await openai.responses.create({
           model,
