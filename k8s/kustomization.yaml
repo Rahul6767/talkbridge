@@ -8,7 +8,8 @@ resources:
   - deployment.yaml
   - service.yaml
   - httproute.yaml
+  - sync-cronjob.yaml
 images:
   - name: app
     newName: ghcr.io/talkbridge-team/talkbridge
-    newTag: deddcb4
+    newTag: c7b6881
