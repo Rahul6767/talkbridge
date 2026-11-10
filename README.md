@@ -19,7 +19,7 @@ A big conference like KubeCon has hundreds of sessions. Attendees, especially fi
 
 | Step           | What the attendee does                                                                                                                                | What happens                                                                                                                                                                                                                                |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. About you   | Describes their background and, optionally, a goal ("frontend dev, want to learn Kubernetes monitoring")                                              | **Recommendations**: a semantic search over the real schedule returns the talks that fit them best                                                                                                                                          |
+| 1. About you   | Describes their background and, optionally, a goal ("frontend dev, want to learn Kubernetes monitoring")                                              | **Recommendations**: a semantic search over the live schedule (refreshed every 6 hours) returns the talks that fit them best                                                                                                                |
 | 2. Search      | Types a query, chooses **keyword / semantic / hybrid**, filters by track, level and day                                                               | Elasticsearch ranks real KubeCon NA 2026 sessions. Hybrid fuses keyword (BM25) and semantic results with **RRF**                                                                                                                            |
 | 3. Pick a talk | Selects a session                                                                                                                                     | Shows the official abstract, a link to the official session page, and **speaker cards** (published bio, company, links) with a short AI web summary of the speaker's public professional background                                         |
 | 4. Prepare     | Chooses a **language** (English, Español, Português, Français, Deutsch, हिन्दी, 日本語, 简体中文) and a **reading level** (plain / standard / expert) | OpenAI writes a **grounded preparation guide**: key concepts to know beforehand, what the talk covers, and questions to ask. The official abstract is the only evidence about the talk, and general background knowledge is labeled as such |
@@ -54,7 +54,7 @@ flowchart LR
 | Web app and API | Next.js 16 (App Router), React 19, Tailwind                                                   | [`src/app`](src/app)                                                                                                             |
 | Search          | Elasticsearch Serverless, `semantic_text` (embeddings at ingest), BM25, RRF retriever         | [`src/app/api/search/route.ts`](src/app/api/search/route.ts)                                                                     |
 | AI              | OpenAI Responses API (guides; `web_search` tool for speaker summaries), 60 s timeout, 1 retry | [`src/app/api/prepare`](src/app/api/prepare/route.ts), [`src/app/api/speakers/insights`](src/app/api/speakers/insights/route.ts) |
-| Data refresh    | Kubernetes CronJob syncs sessions and speakers from the official schedule                     | [`k8s/sync-cronjob.yaml`](k8s/sync-cronjob.yaml), [`scripts/sync-sessions.mjs`](scripts/sync-sessions.mjs)                       |
+| Live data       | Kubernetes CronJob syncs sessions and speakers from the official schedule every 6 hours      | [`k8s/sync-cronjob.yaml`](k8s/sync-cronjob.yaml), [`scripts/sync-sessions.mjs`](scripts/sync-sessions.mjs)                       |
 | Observability   | OpenTelemetry Node SDK → Dash0 (traces, metrics, logs)                                        | [`src/instrumentation.node.ts`](src/instrumentation.node.ts), [`src/lib/telemetry.ts`](src/lib/telemetry.ts)                     |
 | Delivery        | Docker (multi-stage, non-root), GHCR, Kustomize, Argo CD GitOps                               | [`Dockerfile`](Dockerfile), [`k8s/`](k8s), [`argocd/`](argocd), [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)   |
 | Quality gates   | Gitar review, ESLint, TypeScript, build, gitleaks secret scan                                 | [`.gitar/review/talkbridge.md`](.gitar/review/talkbridge.md), [`.github/workflows/ci.yml`](.github/workflows/ci.yml)             |
@@ -82,7 +82,7 @@ Every route validates input size and type and returns JSON errors without stack 
 - Elasticsearch is the core data layer. Index `talkbridge-sessions` maps text fields for **BM25**, keyword fields for **exact filters and facets**, and a **`semantic_text`** field (`title + abstract`) that Elasticsearch embeds **at ingest**, so the app has no client-side vector code ([`scripts/seed.mjs`](scripts/seed.mjs)).
 - Three search modes the user can compare live: keyword (`multi_match`, title boosted ×3), semantic, and **hybrid via the RRF retriever** ([`search/route.ts`](src/app/api/search/route.ts)).
 - **Recommendations** are a semantic query over the attendee's own words (background + goal).
-- A second index, `talkbridge-speakers`, holds speaker profiles. A **CronJob** keeps both indices fresh from the official schedule every 6 hours. It never deletes the seeded sessions, and it skips deletions if the feed looks broken.
+- **Live, not static data:** a Kubernetes **CronJob** (`talkbridge-sync`, every 6 hours) pulls the official schedule and keeps `talkbridge-sessions` and a second index, `talkbridge-speakers`, in step with it. It adds new sessions, updates changed ones (a content hash skips unchanged documents), and removes sessions that disappear from the schedule. It never touches the fictional demo session, and it skips deletions if the feed looks broken (far fewer sessions than before). The schema change is additive (`source`, `contentHash`, `syncedAt`), so the app keeps serving while the sync runs.
 - **Least privilege:** the app's key is **read-only**. Only the seed script and the sync job use write keys, and those never reach the web pods (the sync job has its own Kubernetes Secret).
 
 ### Dash0: "Stop Flying Blind"
@@ -119,8 +119,16 @@ Every route validates input size and type and returns JSON errors without stack 
 
 ## Data sources
 
-- **Sessions:** the official, public [KubeCon + CloudNativeCon North America 2026 schedule](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/) (Salt Lake City, November 9–12, 2026). We seeded 70 regular talks across all 11 main tracks, every level and every main conference day. Abstracts are kept **verbatim**; only the HTML markup was converted to plain text. **Every session links back to its official page** (`sourceUrl`). Sponsored talks, keynotes, breaks and registration slots were excluded.
-- **Speakers:** the speaker name, bio, company and links **as published on the same official schedule**. The AI speaker summary uses only public web pages, professional information only (no contact details), and shows its sources and confidence.
+**The data is live.** Sessions and speakers come from the official, public [KubeCon + CloudNativeCon North America 2026 schedule](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/) (Salt Lake City, November 9–12, 2026), and stay current through the sync CronJob:
+
+| | How it gets in | When |
+|---|---|---|
+| **Sessions (live)** | [`scripts/sync-sessions.mjs`](scripts/sync-sessions.mjs) fetches the schedule page, parses every session card, and upserts each session that has an abstract into `talkbridge-sessions`. Cards without an abstract (breaks, placeholders) are skipped. Sessions removed from the schedule are deleted. | Every 6 hours in the cluster (`k8s/sync-cronjob.yaml`), or on demand (`kubectl create job --from=cronjob/talkbridge-sync …`, or **Run now** in Radar) |
+| **Speakers (live)** | The same sync writes each speaker's name, bio, company and published links into `talkbridge-speakers`. | Same run |
+| **Bootstrap seed** | [`data/sessions.json`](data/sessions.json): 70 curated talks across all 11 main tracks, every level and every main conference day, loaded by [`scripts/seed.mjs`](scripts/seed.mjs) so a fresh install works before the first sync. Ids match the sync, so the first sync updates these talks in place instead of duplicating them. | Once, at setup |
+
+- Abstracts are kept **verbatim**; only the HTML markup is converted to plain text. **Every session links back to its official page** (`sourceUrl`).
+- The AI speaker summary uses only public web pages, professional information only (no contact details), and shows its sources and confidence.
 - **Fictional data:** one demo session (`fictional-k8s-101`, empty `sourceUrl`) is clearly labeled **"Fictional demo session"** in the UI.
 - No attendee lists, emails, badge data, or anything behind a login.
 
@@ -133,7 +141,8 @@ Prerequisites: Node 24+, an Elasticsearch Serverless project, an OpenAI API key,
 ```bash
 npm ci
 cp .env.example .env.local      # fill in your own values; never commit .env.local
-node --env-file=.env.local scripts/seed.mjs --reset   # creates the index, loads data/sessions.json
+node --env-file=.env.local scripts/seed.mjs --reset   # creates the index with the 70-talk bootstrap set
+node --env-file=.env.local scripts/sync-sessions.mjs  # loads the full live schedule and speaker profiles
 npm run dev                     # http://localhost:3000
 ```
 
@@ -147,7 +156,7 @@ npm run dev                     # http://localhost:3000
 | `OPENAI_API_KEY`, `OPENAI_MODEL`                                                                                | Guide generation (default `gpt-4.1-mini`)                                                                      |
 | `OTEL_EXPORTER_OTLP_ENDPOINT`, `OTEL_EXPORTER_OTLP_HEADERS`, `OTEL_EXPORTER_OTLP_PROTOCOL`, `OTEL_SERVICE_NAME` | Telemetry to Dash0. **Telemetry stays off when the endpoint is unset**, and the app still works                |
 
-Refresh sessions and speakers from the official schedule (try `--dry-run` first):
+To preview what a sync would change without writing anything:
 
 ```bash
 node --env-file=.env.local scripts/sync-sessions.mjs --dry-run
